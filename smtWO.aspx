@@ -61,6 +61,8 @@
                     </asp:Label>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+                <%--<asp:Button ID="Button1" runat="server" Enabled="true" type="submit" Text="BACK" class=" btn btn-outline-primary fw-bold text-white"  />--%>
+
                 <h2 class="">WORK ORDER SMT</h2>
 
                 <%--      <div class="form-row col-md-6">
@@ -80,43 +82,56 @@
                         <asp:Button CssClass=" btn btn-dark fw-bold  " runat="server" Text="SEARCH" />
                     </div>
                 </div>--%>
+                <div class="form-group col-md-0">
+                    <asp:Label CssClass="fw-bold" Visible="false" runat="server" for="inputID">ID</asp:Label>
 
+                    <asp:TextBox runat="server" type="text" Visible="false" class="form-control " ID="inputID" aria-describedby="basic-addon1" Enabled="false" placeholder="ID"></asp:TextBox>
+                </div>
 
-                <div class="form-row">
+                <div class="form-row row g-2">
+
                     <div class="form-group col-md-6">
-
-                        <asp:Label CssClass="fw-bold" runat="server" for="inputWorkOrder">Work Order</asp:Label>
-
-                        <asp:TextBox runat="server" type="text" class="form-control " ID="inputWorkorder" aria-describedby="basic-addon1" placeholder=" # WORK ORDER NUMBER"></asp:TextBox>
+                        <asp:Label CssClass="fw-bold none"  runat="server" for="inputWorkOrder">Work Order</asp:Label>
+                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER NUMBER" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
 
                     </div>
-                    <div class="form-group col-md-6">
-                        <asp:Label runat="server" CssClass="fw-bold" for="inputModel">Model</asp:Label>
-                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputModel" placeholder="MODEL (MX1XXXXXXXXXXX)"></asp:TextBox>
+
+                    <div class="form-group col-md-2">
+                        <asp:Label CssClass="fw-bold " ID="label" BorderColor="#f5f5f5" BackColor="#f5f5f5" runat="server" ForeColor="#f5f5f5"> Hola</asp:Label>
+
+                        <asp:Button runat="server" Text="SEARCH" class=" form-control btn btn-outline-dark fw-bold " ID="SearchBtn" OnClick="SearchBtn_Click"></asp:Button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-group col-md-2">
+                <div class="form-group col-auto row g-2 ">
+                    <div class="form-group col-md-4">
                         <asp:Label runat="server" CssClass="fw-bold">Quantity</asp:Label>
                         <asp:TextBox runat="server" type="text" class="form-control" ID="inputQty" placeholder="0000"></asp:TextBox>
                     </div>
                     <div class="form-group col-md-8">
+                        <asp:Label runat="server" CssClass="fw-bold" for="inputModel">Model</asp:Label>
+                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputModel" placeholder="MODEL (MX1XXXXXXXXXXX)"></asp:TextBox>
+                    </div>
+
+                </div>
+                <div class="form-group  row g-2">
+                    <div class="form-group col-md-6">
                         <asp:Label runat="server" CssClass="fw-bold" for="inputAddress">First QR</asp:Label>
                         <asp:TextBox runat="server" type="text" class="form-control" ID="inputFirstQR" placeholder="First QR code printed"></asp:TextBox>
                     </div>
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-6">
                         <asp:Label runat="server" CssClass="fw-bold">Last QR</asp:Label>
                         <asp:TextBox runat="server" class="form-control" ID="inputLastQR" placeholder="Last QR code printed"></asp:TextBox>
                     </div>
-
-
                 </div>
                 <br />
                 <div class="buttons">
-                    <asp:Button runat="server" type="submit" Text="NEW" class=" btn btn-info fw-bold text-white" />
-                    <asp:Button runat="server" type="submit" Text="SAVE" class=" btn btn-success fw-bold" />
-                    <asp:Button runat="server" type="submit" Text="CANCEL" class="btn btn-danger fw-bold" />
-                    <asp:Button runat="server" type="submit" Text="CLEAR" class="btn btn-warning fw-bold text-white" />
+
+                    <asp:Button ID="NewBtn" runat="server" type="submit" Text="NEW" class=" btn btn-info fw-bold text-white" OnClick="NewBtn_Click" Visible="true" />
+                    <asp:Button ID="SaveBtn" runat="server" type="submit" Text="SAVE" class=" btn btn-success fw-bold" OnClick="SaveBtn_Click" Visible="false" />
+                    <asp:Button ID="DeleteBtn" runat="server" type="submit" Text="DELETE" class="btn btn-danger fw-bold" OnClick="DeleteBtn_Click" Visible="false" />
+                    <asp:Button ID="ClearBtn" runat="server" type="submit" Text="CLEAR" class="btn btn-warning fw-bold text-white" OnClick="ClearBtn_Click" Visible="false" />
+                    <asp:Button ID="EditBtn" runat="server" type="submit" Text="EDIT" class="btn btn-danger fw-bold text-white" OnClick="EditBtn_Click" Visible="false" />
+
 
                     <hr />
                 </div>
@@ -143,7 +158,7 @@
                                         <div class="text-center">Sin registros</div>
                                     </EmptyDataTemplate>
                                     <Columns>
-                                        <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" SortExpression="ID" />
+                                        <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" InsertVisible="true" SortExpression="ID" />
                                         <asp:BoundField DataField="WorkOrder" HeaderText="WorkOrder" ReadOnly="True" SortExpression="WorkOrder" />
                                         <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model"></asp:BoundField>
                                         <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity"></asp:BoundField>
@@ -152,17 +167,17 @@
                                     </Columns>
                                     <PagerStyle HorizontalAlign="Right" BackColor="#69757D" CssClass="GridPager" ForeColor="White" />
                                 </asp:GridView>
-                                <asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (20) ID, WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>
+                                <asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (100) ID, WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-</div>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Designed for MMC Inventronics</p>
-            </footer>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; <%: DateTime.Now.Year %> - Designed for MMC Inventronics</p>
+        </footer>
     </form>
 </body>
 </html>

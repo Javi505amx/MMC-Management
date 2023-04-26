@@ -35,6 +35,9 @@ img {
   margin:auto auto;
   
  }
+ .none{
+  display:none;
+}
 }
 
 
@@ -69,8 +72,13 @@ html{
   min-height: 100vh;
   font-size: 1.1rem;
 }
+.none{
+  display:none;
+}
 }
 
-
+.none{
+  display:none;
+}
 
 
