@@ -20,5 +20,19 @@ namespace ManageWO
         {
 
         }
+
+
+        protected void myTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "WorkOrder";
+                e.Row.Cells[1].Text = "Model";
+                e.Row.Cells[2].Text = "Quantity";
+                e.Row.Cells[3].Text = "InitialSN";
+                e.Row.Cells[4].Text = "FinalSN";
+
+            }
+        }
     }
 }

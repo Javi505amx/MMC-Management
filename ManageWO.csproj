@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,6 +73,7 @@
     <Content Include="PTH-Menu.aspx" />
     <Content Include="Sidebar.aspx" />
     <Content Include="SMT-Menu.aspx" />
+    <Content Include="smtWO.aspx" />
     <Content Include="test.aspx" />
     <Content Include="Web.config" />
     <Content Include="WO-SMT.aspx" />
@@ -112,6 +114,13 @@
     </Compile>
     <Compile Include="SMT-Menu.aspx.designer.cs">
       <DependentUpon>SMT-Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="smtWO.aspx.cs">
+      <DependentUpon>smtWO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="smtWO.aspx.designer.cs">
+      <DependentUpon>smtWO.aspx</DependentUpon>
     </Compile>
     <Compile Include="test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>

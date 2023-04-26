@@ -11,7 +11,7 @@ namespace ManageWO
 {
 
 
-    public partial class WO_SMT
+    public partial class smtWO
     {
 
         /// <summary>
@@ -33,6 +33,15 @@ namespace ManageWO
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alert;
 
         /// <summary>
+        /// AlertIcon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AlertIcon;
+
+        /// <summary>
         /// alertText control.
         /// </summary>
         /// <remarks>
@@ -51,40 +60,40 @@ namespace ManageWO
         protected global::System.Web.UI.WebControls.TextBox inputWorkorder;
 
         /// <summary>
-        /// inputPassword4 control.
+        /// inputModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputPassword4;
+        protected global::System.Web.UI.WebControls.TextBox inputModel;
 
         /// <summary>
-        /// inputCity control.
+        /// inputQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputCity;
+        protected global::System.Web.UI.WebControls.TextBox inputQty;
 
         /// <summary>
-        /// inputAddress control.
+        /// inputFirstQR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputAddress;
+        protected global::System.Web.UI.WebControls.TextBox inputFirstQR;
 
         /// <summary>
-        /// inputAddress2 control.
+        /// inputLastQR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputAddress2;
+        protected global::System.Web.UI.WebControls.TextBox inputLastQR;
 
         /// <summary>
         /// myTable control.

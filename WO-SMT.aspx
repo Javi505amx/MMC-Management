@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet" />
-    <%--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />--%>
+
 
     <title>IT Management WO</title>
 </head>
@@ -44,7 +44,6 @@
 
     <form id="form1" runat="server">
         <div class="contenedor-wo">
-            <hr />
             <div class="content-index">
                 <%-- alerta --%>
                 <div runat="server" id="alert" visible="true" class="alert alert-success  alert-dismissible d-flex align-items-center" role="alert">
@@ -56,32 +55,32 @@
                 </div>
                 <%--<h2 class="">WORK ORDER SMT</h2>--%>
 
-                <div class="form-row col-md-6">
+                <%--      <div class="form-row col-md-6">
 
-                    <%--      <div class=" col-md-3">
+                      <div class=" col-md-3">
                         <asp:Label runat="server" CssClass="fw-bold">Action to do</asp:Label>
                         <asp:DropDownList runat="server" class="form-control">
                             <asp:ListItem Selected="True" Value="NA"> Choose.. </asp:ListItem>
                             <asp:ListItem Text="Modify" Value="Modify"></asp:ListItem>
                             <asp:ListItem Text="Create" Value="Create"></asp:ListItem>
                         </asp:DropDownList>
-                    </div>--%>
+                    </div>
 
                     <div class="input-group mb-3">
                         <span class=" input-group-text bi bi-search" id="basic-addon1"></span>
                         <asp:TextBox runat="server" type="text" class="form-control" placeholder="WorkOrder" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
                         <asp:Button CssClass=" btn btn-dark fw-bold  " runat="server" Text="SEARCH" />
                     </div>
-                </div>
+                </div>--%>
 
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
 
                         <asp:Label CssClass="fw-bold" runat="server" for="inputWorkOrder">Work Order</asp:Label>
-                        <%--<span class="input-group-text fw-bold bg-secondary text-white" id="basic-addon1">WORK ORDER</span>--%>
+
                         <asp:TextBox runat="server" type="text" class="form-control " ID="inputWorkorder" aria-describedby="basic-addon1" placeholder=""></asp:TextBox>
-                        <%--<asp:Button runat="server" class="btn btn-outline-secondary"  Text="Buscar" type="button" id="Search"  />--%>
+
                     </div>
                     <div class="form-group col-md-6">
                         <asp:Label runat="server" CssClass="fw-bold" for="inputPassword4">Model</asp:Label>
@@ -102,6 +101,7 @@
                         <asp:TextBox runat="server" class="form-control" ID="inputAddress2" placeholder=""></asp:TextBox>
                     </div>
 
+
                 </div>
 
 
@@ -114,11 +114,37 @@
 
 
             </div>
+            <div class="form-row">
+                <div class="col-md-12s col-md-offset-1">
+                    <div class="form-group">
+                        <div class="rounded shadow bg-white table-responsive ">
+
+                            <asp:GridView ID="myTable" OnRowDataBound="myTable_RowDataBound" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" runat="server" AutoGenerateColumns="false" DataKeyNames="WorkOrder" AutoGenerateSelectButton="true"  DataSourceID="GridWO_data">
+                                <AlternatingRowStyle BackColor="White" />
+                                <RowStyle BackColor="#f5f5f5" />
+                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="White" />
+                                <EmptyDataTemplate>
+                                    <div class="text-center">Sin registros</div>
+                                </EmptyDataTemplate>
+                                <Columns>
+                                    <asp:BoundField DataField="WorkOrder" HeaderText="WorkOrder" ReadOnly="True" SortExpression="WorkOrder" />
+                                    <asp:BoundField DataField="Model" HeaderText="Model" SortExpression="Model"></asp:BoundField>
+                                    <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity"></asp:BoundField>
+                                    <asp:BoundField DataField="InitialSN" HeaderText="InitialSN" SortExpression="InitialSN"></asp:BoundField>
+                                    <asp:BoundField DataField="FinalSN" HeaderText="FinalSN" SortExpression="FinalSN"></asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (20) WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
         </div>
 
     </form>
+
 </body>
 </html>

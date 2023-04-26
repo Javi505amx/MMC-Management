@@ -42,12 +42,9 @@ img {
   width: 75%;
   margin:0 auto;
 }
-.contenedor-wo {
-  width: 85%;
+.content-index {
+  width: 100%;
   margin:0  auto;
-  display: flex;
-  align-items: center;
-  align-content: center;
 }
 
 img {
@@ -70,6 +67,10 @@ content-index{
 {
 html{
   min-height: 100vh;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 }
+
+
+
+
