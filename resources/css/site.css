@@ -1,7 +1,12 @@
 img {
   width: 0px;
 }
+  
+.btn {
+  font-size:0.9rem;
+}
 @media (min-width: 550px) {
+  
   html {
     font-size: 1.4rem;
     min-height: 100vh;
@@ -68,17 +73,12 @@ content-index{
 
 @media (min-width: 1300px) 
 {
+
 html{
   min-height: 100vh;
   font-size: 1.1rem;
 }
-.none{
-  display:none;
-}
 }
 
-.none{
-  display:none;
-}
 
 

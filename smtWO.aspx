@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/resources/images2/icon.ico" rel="shortcut icon" />
+    <link href="~/resources/images/icon.ico" rel="shortcut icon" />
     <%--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />--%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -35,7 +35,7 @@
     <nav class="navbar navbar-fixed-top navbar-expand-sm  navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="./Default.aspx">
-                <img id="logo" src="./resources/images2/inv.png" /></a>
+                <img id="logo" src="./resources/images/inv.png" /></a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -61,38 +61,21 @@
                     </asp:Label>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <%--<asp:Button ID="Button1" runat="server" Enabled="true" type="submit" Text="BACK" class=" btn btn-outline-primary fw-bold text-white"  />--%>
+                
 
-                <h2 class="">WORK ORDER SMT</h2>
+                <h2 style="text-align:center;" class="">WORK ORDER SMT</h2>
 
-                <%--      <div class="form-row col-md-6">
-
-                      <div class=" col-md-3">
-                        <asp:Label runat="server" CssClass="fw-bold">Action to do</asp:Label>
-                        <asp:DropDownList runat="server" class="form-control">
-                            <asp:ListItem Selected="True" Value="NA"> Choose.. </asp:ListItem>
-                            <asp:ListItem Text="Modify" Value="Modify"></asp:ListItem>
-                            <asp:ListItem Text="Create" Value="Create"></asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <span class=" input-group-text bi bi-search" id="basic-addon1"></span>
-                        <asp:TextBox runat="server" type="text" class="form-control" placeholder="WorkOrder" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
-                        <asp:Button CssClass=" btn btn-dark fw-bold  " runat="server" Text="SEARCH" />
-                    </div>
-                </div>--%>
                 <div class="form-group col-md-0">
-                    <asp:Label CssClass="fw-bold" Visible="false" runat="server" for="inputID">ID</asp:Label>
+                    <asp:Label CssClass="fw-bold form-control" Visible="false" runat="server" for="inputID">ID</asp:Label>
 
                     <asp:TextBox runat="server" type="text" Visible="false" class="form-control " ID="inputID" aria-describedby="basic-addon1" Enabled="false" placeholder="ID"></asp:TextBox>
                 </div>
 
-                <div class="form-row">
+                <div class="form-group">
 
                     <div class="form-group col-md-6">
-                        <asp:Label CssClass="fw-bold"  runat="server" for="inputWorkOrder">Work Order</asp:Label>
-                        <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER, Model" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
+                        <asp:Label CssClass="fw-bold form-control label" runat="server" >Work Order</asp:Label>
+                        <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
 
                     </div>
 
@@ -102,24 +85,24 @@
                         <asp:Button runat="server" Text="SEARCH" class=" form-control btn btn-outline-dark fw-bold " ID="SearchBtn" OnClick="SearchBtn_Click"></asp:Button>
                     </div>--%>
                 </div>
-                <div class="form-group col-auto row g-2 ">
+                <div class="form-group  row g-2 ">
                     <div class="form-group col-md-4">
-                        <asp:Label runat="server" CssClass="fw-bold">Quantity</asp:Label>
+                        <asp:Label runat="server" CssClass="fw-bold form-control label">Quantity</asp:Label>
                         <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputQty" placeholder="0000"></asp:TextBox>
                     </div>
                     <div class="form-group col-md-8">
-                        <asp:Label runat="server" CssClass="fw-bold" for="inputModel">Model</asp:Label>
+                        <asp:Label runat="server" CssClass="fw-bold form-control label" for="inputModel">Model</asp:Label>
                         <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputModel" placeholder="MODEL (MX1XXXXXXXXXXX)"></asp:TextBox>
                     </div>
 
                 </div>
                 <div class="form-group  row g-2">
                     <div class="form-group col-md-6">
-                        <asp:Label runat="server" CssClass="fw-bold" for="inputAddress">First QR</asp:Label>
+                        <asp:Label runat="server" CssClass="fw-bold form-control label" for="inputAddress">First QR</asp:Label>
                         <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputFirstQR" placeholder="First QR code printed"></asp:TextBox>
                     </div>
                     <div class="form-group col-md-6">
-                        <asp:Label runat="server" CssClass="fw-bold">Last QR</asp:Label>
+                        <asp:Label runat="server" CssClass="fw-bold form-control label">Last QR</asp:Label>
                         <asp:TextBox runat="server" Style="text-transform: uppercase" class="form-control" ID="inputLastQR" placeholder="Last QR code printed"></asp:TextBox>
                     </div>
                 </div>
@@ -136,13 +119,16 @@
                     <hr />
                 </div>
                 <div class="form-row">
-                    <h2 class="">DATA FILTER</h2>
+                    <h2 style="text-align:center;" class="">DATA FILTER</h2>
                     <div class="input-group mb-4">
 
                         <span class=" input-group-text bi bi-search" id="basic-addon1"></span>
-                        <asp:TextBox ID="filterText" Style="text-transform: uppercase"  AutoPostBack="true" OnTextChanged="filterText_TextChanged" runat="server" type="text" class="form-control" placeholder="WorkOrder" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
-                        <asp:Button ID="SearchBtn" CssClass=" btn btn-dark fw-bold" OnClick="SearchBtn_Click"  runat="server" Text="SEARCH" />
-                        <asp:Button ID="RefreshBtn" CssClass="btn btn-primary fw-bold" runat="server" OnClick="RefreshBtn_Click" Text="REFRESH" />
+                        <asp:TextBox ID="filterText" CssClass="form-control" Enabled="false" Style="text-transform: uppercase; width:auto;"  AutoPostBack="true" OnTextChanged="filterText_TextChanged" runat="server" type="text" class="form-control" placeholder="WorkOrder, Model" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
+                        <asp:Button ID="QueryBtn" Visible="true" CssClass=" btn btn-dark fw-bold" OnClick="QueryBtn_Click" runat="server" Text="QUERY" />
+                        <asp:Button ID="SearchBtn" Visible="false" CssClass=" btn btn-dark fw-bold" OnClick="SearchBtn_Click"  runat="server" Text="SEARCH" />
+                        <asp:Button ID="RefreshBtn" Visible="true" CssClass="btn btn-primary fw-bold" runat="server" OnClick="RefreshBtn_Click" Text="REFRESH" />
+                        <asp:Button ID="CancelBtn" Visible="false" CssClass="btn btn-danger fw-bold" runat="server" OnClick="CancelBtn_Click" Text="CANCEL" />
+
                     </div>
                 </div>
 
@@ -154,7 +140,7 @@
                                 <asp:GridView ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" runat="server" AutoGenerateColumns="false"  DataKeyNames="WorkOrder" AutoGenerateSelectButton="true"  AllowPaging="True">
                                     <AlternatingRowStyle BackColor="White" />
                                     <RowStyle BackColor="#f5f5f5" />
-                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="White" />
+                                    <SelectedRowStyle BackColor="#00404d" CssClass="opacity" Font-Bold="true" ForeColor="White"  />
                                     <EmptyDataTemplate>
                                         <div class="text-center">Sin registros</div>
                                     </EmptyDataTemplate>

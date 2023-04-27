@@ -159,6 +159,15 @@ namespace ManageWO
         protected global::System.Web.UI.WebControls.TextBox filterText;
 
         /// <summary>
+        /// QueryBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button QueryBtn;
+
+        /// <summary>
         /// SearchBtn control.
         /// </summary>
         /// <remarks>
@@ -175,6 +184,15 @@ namespace ManageWO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button RefreshBtn;
+
+        /// <summary>
+        /// CancelBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelBtn;
 
         /// <summary>
         /// myTable control.

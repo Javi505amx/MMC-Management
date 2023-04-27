@@ -147,3 +147,24 @@ body{
 
 
 }
+
+
+.label{
+  background-color: transparent !important;
+  border: none !important;
+}
+
+*:disabled {
+  background-color: #00404d;
+
+  color: white;
+  opacity: 0.45;
+  width: 100%;
+  height: 55%;
+}
+
+
+.opacity{
+  background-color: #00404d;
+  opacity: .50;
+}
