@@ -88,39 +88,39 @@
                     <asp:TextBox runat="server" type="text" Visible="false" class="form-control " ID="inputID" aria-describedby="basic-addon1" Enabled="false" placeholder="ID"></asp:TextBox>
                 </div>
 
-                <div class="form-row row g-2">
+                <div class="form-row">
 
                     <div class="form-group col-md-6">
-                        <asp:Label CssClass="fw-bold none"  runat="server" for="inputWorkOrder">Work Order</asp:Label>
-                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER NUMBER" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
+                        <asp:Label CssClass="fw-bold"  runat="server" for="inputWorkOrder">Work Order</asp:Label>
+                        <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER, Model" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
 
                     </div>
 
-                    <div class="form-group col-md-2">
+         <%--           <div class="form-group col-md-2">
                         <asp:Label CssClass="fw-bold " ID="label" BorderColor="#f5f5f5" BackColor="#f5f5f5" runat="server" ForeColor="#f5f5f5"> Hola</asp:Label>
 
                         <asp:Button runat="server" Text="SEARCH" class=" form-control btn btn-outline-dark fw-bold " ID="SearchBtn" OnClick="SearchBtn_Click"></asp:Button>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="form-group col-auto row g-2 ">
                     <div class="form-group col-md-4">
                         <asp:Label runat="server" CssClass="fw-bold">Quantity</asp:Label>
-                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputQty" placeholder="0000"></asp:TextBox>
+                        <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputQty" placeholder="0000"></asp:TextBox>
                     </div>
                     <div class="form-group col-md-8">
                         <asp:Label runat="server" CssClass="fw-bold" for="inputModel">Model</asp:Label>
-                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputModel" placeholder="MODEL (MX1XXXXXXXXXXX)"></asp:TextBox>
+                        <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputModel" placeholder="MODEL (MX1XXXXXXXXXXX)"></asp:TextBox>
                     </div>
 
                 </div>
                 <div class="form-group  row g-2">
                     <div class="form-group col-md-6">
                         <asp:Label runat="server" CssClass="fw-bold" for="inputAddress">First QR</asp:Label>
-                        <asp:TextBox runat="server" type="text" class="form-control" ID="inputFirstQR" placeholder="First QR code printed"></asp:TextBox>
+                        <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputFirstQR" placeholder="First QR code printed"></asp:TextBox>
                     </div>
                     <div class="form-group col-md-6">
                         <asp:Label runat="server" CssClass="fw-bold">Last QR</asp:Label>
-                        <asp:TextBox runat="server" class="form-control" ID="inputLastQR" placeholder="Last QR code printed"></asp:TextBox>
+                        <asp:TextBox runat="server" Style="text-transform: uppercase" class="form-control" ID="inputLastQR" placeholder="Last QR code printed"></asp:TextBox>
                     </div>
                 </div>
                 <br />
@@ -136,12 +136,13 @@
                     <hr />
                 </div>
                 <div class="form-row">
-                    <h2 class="">WORK ORDER FILTER</h2>
-                    <div class="input-group mb-3">
+                    <h2 class="">DATA FILTER</h2>
+                    <div class="input-group mb-4">
 
                         <span class=" input-group-text bi bi-search" id="basic-addon1"></span>
-                        <asp:TextBox runat="server" type="text" class="form-control" placeholder="WorkOrder" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
-                        <asp:Button CssClass=" btn btn-dark fw-bold  " runat="server" Text="SEARCH" />
+                        <asp:TextBox ID="filterText" Style="text-transform: uppercase"  AutoPostBack="true" OnTextChanged="filterText_TextChanged" runat="server" type="text" class="form-control" placeholder="WorkOrder" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
+                        <asp:Button ID="SearchBtn" CssClass=" btn btn-dark fw-bold" OnClick="SearchBtn_Click"  runat="server" Text="SEARCH" />
+                        <asp:Button ID="RefreshBtn" CssClass="btn btn-primary fw-bold" runat="server" OnClick="RefreshBtn_Click" Text="REFRESH" />
                     </div>
                 </div>
 
@@ -150,7 +151,7 @@
                         <div class="form-group">
                             <div class="rounded shadow bg-white table-responsive ">
 
-                                <asp:GridView ID="myTable" OnRowDataBound="myTable_RowDataBound" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" runat="server" AutoGenerateColumns="false" DataKeyNames="WorkOrder" AutoGenerateSelectButton="true" DataSourceID="GridWO_data" AllowPaging="True">
+                                <asp:GridView ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" runat="server" AutoGenerateColumns="false"  DataKeyNames="WorkOrder" AutoGenerateSelectButton="true"  AllowPaging="True">
                                     <AlternatingRowStyle BackColor="White" />
                                     <RowStyle BackColor="#f5f5f5" />
                                     <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="White" />
@@ -167,7 +168,7 @@
                                     </Columns>
                                     <PagerStyle HorizontalAlign="Right" BackColor="#69757D" CssClass="GridPager" ForeColor="White" />
                                 </asp:GridView>
-                                <asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (100) ID, WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>
+                                <%--<asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (100) ID, WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>--%>
                             </div>
                         </div>
                     </div>
