@@ -29,7 +29,7 @@
     </script>
 
 
-    <title>IT Management WO</title>
+    <title>WO SMT</title>
 </head>
 <body>
     <nav class="navbar navbar-fixed-top navbar-expand-sm  navbar-toggleable-sm navbar-dark bg-dark">
@@ -61,25 +61,25 @@
                     </asp:Label>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                
 
-                <h2 style="text-align:center;" class="">WORK ORDER SMT</h2>
+
+                <h2 style="text-align: center;" class="">WORK ORDER SMT</h2>
 
                 <div class="form-group col-md-0">
                     <asp:Label CssClass="fw-bold form-control" Visible="false" runat="server" for="inputID">ID</asp:Label>
 
-                    <asp:TextBox runat="server" type="text" Visible="false" class="form-control " ID="inputID" aria-describedby="basic-addon1" Enabled="false" placeholder="ID"></asp:TextBox>
+                    <asp:TextBox runat="server" require="required" type="text" Visible="false" class="form-control " ID="inputID" aria-describedby="basic-addon1" Enabled="false" placeholder="ID"></asp:TextBox>
+
                 </div>
 
                 <div class="form-group">
 
                     <div class="form-group col-md-6">
-                        <asp:Label CssClass="fw-bold form-control label" runat="server" >Work Order</asp:Label>
+                        <asp:Label CssClass="fw-bold form-control label" runat="server">Work Order</asp:Label>
                         <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
 
-                    </div>
 
-         <%--           <div class="form-group col-md-2">
+                    <%--           <div class="form-group col-md-2">
                         <asp:Label CssClass="fw-bold " ID="label" BorderColor="#f5f5f5" BackColor="#f5f5f5" runat="server" ForeColor="#f5f5f5"> Hola</asp:Label>
 
                         <asp:Button runat="server" Text="SEARCH" class=" form-control btn btn-outline-dark fw-bold " ID="SearchBtn" OnClick="SearchBtn_Click"></asp:Button>
@@ -107,29 +107,37 @@
                     </div>
                 </div>
                 <br />
-                <div class="buttons">
-
-                    <asp:Button ID="NewBtn" runat="server" type="submit" Text="NEW" class=" btn btn-info fw-bold text-white" OnClick="NewBtn_Click" Visible="true" />
-                    <asp:Button ID="SaveBtn" runat="server" type="submit" Text="SAVE" class=" btn btn-success fw-bold" OnClick="SaveBtn_Click" Visible="false" />
-                    <asp:Button ID="DeleteBtn" runat="server" type="submit" Text="DELETE" class="btn btn-danger fw-bold" OnClick="DeleteBtn_Click" Visible="false" />
-                    <asp:Button ID="ClearBtn" runat="server" type="submit" Text="CLEAR" class="btn btn-warning fw-bold text-white" OnClick="ClearBtn_Click" Visible="false" />
-                    <asp:Button ID="EditBtn" runat="server" type="submit" Text="EDIT" class="btn btn-danger fw-bold text-white" OnClick="EditBtn_Click" Visible="false" />
-
-
-                    <hr />
+                <div class=" botonera form-group mb-3">
+                    <asp:LinkButton ID="NewBtn" runat="server" type="submit" Text="NEW" class="boton btn btn-primary " OnClick="NewBtn_Click" Visible="false" ><i class="bi bi-plus-circle-fill"></i> NEW</asp:LinkButton>
+                    <asp:LinkButton ID="SaveBtn" runat="server" type="submit" Text="SAVE" class="boton btn btn-success" OnClick="SaveBtn_Click" Visible="false" ><i class="bi bi-database-fill-up"></i> SAVE</asp:LinkButton>
+                    <asp:LinkButton ID="DeleteBtn" runat="server" type="submit" Text="DELETE" class="boton btn btn-danger " OnClick="DeleteBtn_Click" Visible="false" ><i class="bi bi-trash3-fill"></i> DELETE</asp:LinkButton>
+                    <asp:LinkButton ID="ClearBtn" runat="server" type="submit"  class="boton btn btn-warning " OnClick="ClearBtn_Click" Visible="false" ><span runat="server" id="icono" class="bi bi-eraser-fill"></span> CLEAR </asp:LinkButton>
+                    <asp:LinkButton ID="EditBtn" runat="server" type="submit" Text="EDIT" class="boton btn btn-danger" OnClick="EditBtn_Click" Visible="false" ><i class="bi bi-pencil-square"></i> EDIT</asp:LinkButton>
+                    <asp:LinkButton ID="UpdateBtn" runat="server" type="submit" Text="EDIT" class=" boton btn btn-warning" OnClick="UpdateBtn_Click" Visible="false" ><i class="bi bi-database-fill-check"></i> UPDATE</asp:LinkButton>
+                    <asp:LinkButton ID="AbortBtn" runat="server" type="submit" Text="EDIT" class=" boton btn btn-warning" OnClick="AbortBtn_Click" Visible="false" ><i class="bi bi-database-fill-check"></i> UPDATE</asp:LinkButton>
                 </div>
-                <div class="form-row">
-                    <h2 style="text-align:center;" class="">DATA FILTER</h2>
-                    <div class="input-group mb-4">
+              <%-- <div class="form-group mb-4">
+
+                    <asp:LinkButton ID="LinkButton1" runat="server" type="submit" Text="NEW" class=" btn btn-info fw-bold text-white" OnClick="NewBtn_Click" Visible="true" ><i class="bi bi-plus-circle"></i> NEW</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton2" runat="server" type="submit" Text="SAVE" class=" btn btn-success fw-bold" OnClick="SaveBtn_Click" Visible="true" ><i class="bi bi-check-circle-fill"></i> SAVE</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton3" runat="server" type="submit" Text="DELETE" class="btn btn-danger fw-bold" OnClick="DeleteBtn_Click" Visible="true" ><i class="bi bi-trash3-fill"></i> DELETE</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton4" runat="server" type="submit"  class="btn btn-warning fw-bold text-white" OnClick="ClearBtn_Click" Visible="true" ><span runat="server" id="Span1" class="bi bi-eraser-fill"></span> CLEAR </asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton5" runat="server" type="submit" Text="EDIT" class="btn btn-danger fw-bold text-white" OnClick="EditBtn_Click" Visible="true" ><i class="bi bi-pencil-square"></i> EDIT</asp:LinkButton>
+                </div>--%>
+                 <hr />
+                <div class="form-group">
+                    <h2 style="text-align: center;" class="">DATA FILTER</h2>
+                    <div class="input-group mb-6">
 
                         <span class=" input-group-text bi bi-search" id="basic-addon1"></span>
-                        <asp:TextBox ID="filterText" CssClass="form-control" Enabled="false" Style="text-transform: uppercase; width:auto;"  AutoPostBack="true" OnTextChanged="filterText_TextChanged" runat="server" type="text" class="form-control" placeholder="WorkOrder, Model" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
-                        <asp:Button ID="QueryBtn" Visible="true" CssClass=" btn btn-dark fw-bold" OnClick="QueryBtn_Click" runat="server" Text="QUERY" />
-                        <asp:Button ID="SearchBtn" Visible="false" CssClass=" btn btn-dark fw-bold" OnClick="SearchBtn_Click"  runat="server" Text="SEARCH" />
-                        <asp:Button ID="RefreshBtn" Visible="true" CssClass="btn btn-primary fw-bold" runat="server" OnClick="RefreshBtn_Click" Text="REFRESH" />
-                        <asp:Button ID="CancelBtn" Visible="false" CssClass="btn btn-danger fw-bold" runat="server" OnClick="CancelBtn_Click" Text="CANCEL" />
+                        <asp:TextBox ID="filterText" CssClass="form-control" Enabled="false" Style="text-transform: uppercase; width: auto;" AutoPostBack="true" OnTextChanged="filterText_TextChanged" runat="server" type="text" class="form-control" placeholder="WorkOrder, Model" aria-label="Username" aria-describedby="basic-addon1"></asp:TextBox>
+                        <asp:Button ID="QueryBtn" Visible="false" CssClass="btn btn-outline-dark fw-bold" OnClick="QueryBtn_Click" runat="server" Text="QUERY" />
+                        <asp:Button ID="SearchBtn" Visible="false" CssClass=" btn btn-outline-dark fw-bold" OnClick="SearchBtn_Click" runat="server" Text="SEARCH" />
+                        <asp:Button ID="RefreshBtn" Visible="false" CssClass=" btn btn-outline-primary fw-bold" runat="server" OnClick="RefreshBtn_Click" Text="REFRESH" />
+                        <asp:Button ID="CancelBtn" Visible="false" CssClass=" btn btn-outline-danger fw-bold" runat="server" OnClick="CancelBtn_Click" Text="CANCEL" />
 
                     </div>
+                    <hr />
                 </div>
 
                 <div class="form-row">
@@ -137,10 +145,10 @@
                         <div class="form-group">
                             <div class="rounded shadow bg-white table-responsive ">
 
-                                <asp:GridView ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" runat="server" AutoGenerateColumns="false"  DataKeyNames="WorkOrder" AutoGenerateSelectButton="true"  AllowPaging="True">
+                                <asp:GridView ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" runat="server" AutoGenerateColumns="false" DataKeyNames="WorkOrder" AutoGenerateSelectButton="true" AllowPaging="True">
                                     <AlternatingRowStyle BackColor="White" />
                                     <RowStyle BackColor="#f5f5f5" />
-                                    <SelectedRowStyle BackColor="#00404d" CssClass="opacity" Font-Bold="true" ForeColor="White"  />
+                                    <SelectedRowStyle BackColor="#00404d" CssClass="opacity" Font-Bold="true" ForeColor="White" />
                                     <EmptyDataTemplate>
                                         <div class="text-center">Sin registros</div>
                                     </EmptyDataTemplate>
@@ -160,11 +168,38 @@
                     </div>
                 </div>
             </div>
+            <%-- Fin off Gridview --%>
         </div>
         <hr />
         <footer>
-            <p>&copy; <%: DateTime.Now.Year %> - Designed for MMC Inventronics</p>
+            <p><b><i>DATE:   <%: DateTime.Now.Day%>/<%: DateTime.Now.Month%>/<%:DateTime.Now.Year%></i> <i>Last Updated:</i> <%:DateTime.Now.Hour%>:<%:DateTime.Now.Minute%>:<%:DateTime.Now.Second%> &copy;Designed for MMC Inventronics</b></p>
         </footer>
     </form>
+
+    <script type="text/JavaScript">
+
+   function ClientValidation(source, arguments)
+   {
+
+   for(var counter=2;
+      counter>=arguments.Value/2;
+      counter++)
+   {
+
+      if((arguments.Value%counter)==0)
+      {
+
+         arguments.IsValid = false;
+         return false;
+      }
+      else
+      {
+
+         arguments.IsValid = true;
+         return true;
+      }
+   }
+   }
+</script>
 </body>
 </html>

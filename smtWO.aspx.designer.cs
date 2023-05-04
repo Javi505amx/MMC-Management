@@ -111,7 +111,7 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button NewBtn;
+        protected global::System.Web.UI.WebControls.LinkButton NewBtn;
 
         /// <summary>
         /// SaveBtn control.
@@ -120,7 +120,7 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveBtn;
+        protected global::System.Web.UI.WebControls.LinkButton SaveBtn;
 
         /// <summary>
         /// DeleteBtn control.
@@ -129,7 +129,7 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button DeleteBtn;
+        protected global::System.Web.UI.WebControls.LinkButton DeleteBtn;
 
         /// <summary>
         /// ClearBtn control.
@@ -138,7 +138,16 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ClearBtn;
+        protected global::System.Web.UI.WebControls.LinkButton ClearBtn;
+
+        /// <summary>
+        /// icono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl icono;
 
         /// <summary>
         /// EditBtn control.
@@ -147,7 +156,25 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button EditBtn;
+        protected global::System.Web.UI.WebControls.LinkButton EditBtn;
+
+        /// <summary>
+        /// UpdateBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton UpdateBtn;
+
+        /// <summary>
+        /// AbortBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton AbortBtn;
 
         /// <summary>
         /// filterText control.

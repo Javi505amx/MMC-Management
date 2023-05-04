@@ -12,10 +12,21 @@ namespace ManageWO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
+                NewBtn.Visible = true;
+                SearchBtn.Visible = false;
+                SaveBtn.Visible = false;
+                DeleteBtn.Visible = false;
+                CancelBtn.Visible = false;
+                EditBtn.Visible = false;
+                QueryBtn.Visible = false;
+                ClearBtn.Visible = false;
+                RefreshBtn.Visible = true;
+                UpdateBtn.Visible = false;
                 DisableFields();
                 BindGridView();
+                OriginalStateButton();
             }
 
         }
@@ -39,19 +50,6 @@ namespace ManageWO
         static string IDTable;
         protected void myTable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            IDTable = myTable.SelectedRow.Cells[1].Text.ToString();
-            inputID.Text = IDTable.ToString();
-            inputWorkorder.Text = myTable.SelectedRow.Cells[2].Text.ToString();
-            inputModel.Text = myTable.SelectedRow.Cells[3].Text.ToString();
-            inputQty.Text = myTable.SelectedRow.Cells[4].Text.ToString();
-            inputFirstQR.Text = myTable.SelectedRow.Cells[5].Text.ToString();
-            inputLastQR.Text = myTable.SelectedRow.Cells[6].Text.ToString();
-
-            alert.Visible = true;
-            AlertIcon.Attributes.Add("class", " bi bi-info-circle-fill");
-            alert.Attributes.Add("class", " alert alert-info  alert-dismissible ");
-            alertText.Text = "Bounded Succesfully";
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2000)</script>");
             SaveBtn.Visible = false;
             DeleteBtn.Visible = false;
             NewBtn.Visible = true;
@@ -61,6 +59,26 @@ namespace ManageWO
             QueryBtn.Visible = true;
             RefreshBtn.Visible = true;
             SearchBtn.Visible = false;
+            filterText.Enabled = false;
+            UpdateBtn.Visible = false;
+            OriginalStateButton();
+
+
+            IDTable = myTable.SelectedRow.Cells[1].Text.ToString();
+            inputID.Text = IDTable.ToString();
+            inputWorkorder.Text = myTable.SelectedRow.Cells[2].Text.ToString();
+            inputModel.Text = myTable.SelectedRow.Cells[3].Text.ToString();
+            inputQty.Text = myTable.SelectedRow.Cells[4].Text.ToString();
+            inputFirstQR.Text = myTable.SelectedRow.Cells[5].Text.Replace("&nbsp;", "");
+            inputLastQR.Text = myTable.SelectedRow.Cells[6].Text.Replace("&nbsp;", "");
+
+            alert.Visible = true;
+            AlertIcon.Attributes.Add("class", " bi bi-info-circle-fill");
+            alert.Attributes.Add("class", " alert alert-info  alert-dismissible ");
+            alertText.Text = "Bounded Succesfully";
+            ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2000)</script>");
+ 
+
 
 
         }
@@ -69,29 +87,72 @@ namespace ManageWO
 
         protected void NewBtn_Click(object sender, EventArgs e)
         {
-            //inputID.Text = null;
-            //inputWorkorder.Text = null;
-            //inputModel.Text = null;
-            //inputQty.Text = null;
-            //inputFirstQR.Text = null;
-            //inputLastQR.Text = null;
+            inputID.Text = null;
+            inputWorkorder.Text = null;
+            inputModel.Text = null;
+            inputQty.Text = null;
+            inputFirstQR.Text = null;
+            inputLastQR.Text = null;
             inputWorkorder.Focus();
             ClearBtn.Visible = true;
             SaveBtn.Visible = true;
             DeleteBtn.Visible = false;
-            NewBtn.Visible = false;
+            NewBtn.Visible = true;
             EditBtn.Visible = false;
             SearchBtn.Visible = false;
             QueryBtn.Visible = true;
             CancelBtn.Visible = false;
             RefreshBtn.Visible = true;
-            BindGridView();
+            filterText.Enabled = false;
+            UpdateBtn.Visible = false;
+
+            //SaveBtn.Visible = true;
             EnableFields();
 
         }
 
         protected void SaveBtn_Click(object sender, EventArgs e)
         {
+            string conDBsmt = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            string WO = inputWorkorder.Text;
+            string Model = inputModel.Text;
+            int Qty = int.Parse(inputQty.Text);
+            string InitialSN = inputFirstQR.Text;
+            string FinalSN = inputLastQR.Text;
+            SqlConnection connectionDBsmt = new SqlConnection(conDBsmt);
+            SqlCommand cmdSP = new SqlCommand("AddInfoWOSMT", connectionDBsmt);
+            cmdSP.CommandType = CommandType.StoredProcedure;
+            connectionDBsmt.Open();
+            cmdSP.Parameters.Add("@WorkOrder", SqlDbType.VarChar, 30).Value = WO;
+            cmdSP.Parameters.Add("@Model", SqlDbType.VarChar, 50).Value = Model;
+            cmdSP.Parameters.Add("@Quantity", SqlDbType.Int).Value = Qty;
+            cmdSP.Parameters.Add("@InitialSN", SqlDbType.VarChar, 100).Value = InitialSN;
+            cmdSP.Parameters.Add("@FinalSN", SqlDbType.VarChar, 100).Value = FinalSN;
+            SqlDataReader sqlDataReader = cmdSP.ExecuteReader();
+            sqlDataReader.Read();
+            int int32 = sqlDataReader.GetInt32(sqlDataReader.GetOrdinal("rowAffected"));
+            connectionDBsmt.Close();
+            if (int32 == 1)
+            {
+
+                alert.Visible = true;
+                AlertIcon.Attributes.Add("class", " bi bi-database-check");
+                alert.Attributes.Add("class", " alert alert-success  alert-dismissible ");
+                alertText.Text = "WorkOrder Created Succesfully";
+                ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
+               
+            }
+            else
+            {
+                alert.Visible = true;
+                AlertIcon.Attributes.Add("class", " bi bi-database-x");
+                alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+                alertText.Text = "WorkOrder Duplicated or something is missing";
+                ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
+                
+                DisableFields();
+
+            }
             SaveBtn.Visible = false;
             DeleteBtn.Visible = false;
             ClearBtn.Visible = false;
@@ -101,6 +162,10 @@ namespace ManageWO
             CancelBtn.Visible = false;
             QueryBtn.Visible = true;
             RefreshBtn.Visible = true;
+            filterText.Enabled = false;
+            UpdateBtn.Visible = false;
+
+            clearFields();
             DisableFields();
             BindGridView();
 
@@ -108,6 +173,37 @@ namespace ManageWO
 
         protected void DeleteBtn_Click(object sender, EventArgs e)
         {
+            string connectionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            string WO = inputWorkorder.Text;
+            int ID = int.Parse(inputID.Text);
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand4 = new SqlCommand("DeleteWOSMT", connection);
+            sqlCommand4.CommandType = CommandType.StoredProcedure;
+            connection.Open();
+            sqlCommand4.Parameters.Add("@WorkOrder", SqlDbType.VarChar, 30).Value = WO;
+            sqlCommand4.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+
+            SqlDataReader reader = sqlCommand4.ExecuteReader();
+            reader.Read();
+            int row = reader.GetInt32(reader.GetOrdinal("RowDeleted"));
+            //sqlCommand4.ExecuteReader().Read();
+            connection.Close();
+            if (row == 1)
+            {
+                alert.Visible = true;
+                AlertIcon.Attributes.Add("class", "bi bi-database-exclamation");
+                alert.Attributes.Add("class", " alert alert-primary  alert-dismissible ");
+                alertText.Text = "WorkOrder deleted ";
+                ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
+            }
+            else
+            {
+                alert.Visible = true;
+                AlertIcon.Attributes.Add("class", "bi bi-database-fill-x");
+                alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+                alertText.Text = "Something went wrong, please contact IT dept";
+                ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
+            }
             SaveBtn.Visible = false;
             DeleteBtn.Visible = false;
             ClearBtn.Visible = false;
@@ -117,6 +213,10 @@ namespace ManageWO
             QueryBtn.Visible = true;
             CancelBtn.Visible = false;
             RefreshBtn.Visible = true;
+            filterText.Enabled = false;
+            UpdateBtn.Visible = false;
+
+            clearFields();
             BindGridView();
             DisableFields();
         }
@@ -128,14 +228,23 @@ namespace ManageWO
             NewBtn.Visible = true;
             ClearBtn.Visible = false;
             EditBtn.Visible = false;
+            CancelBtn.Visible = false;
+            QueryBtn.Visible = true;
+            SearchBtn.Visible = false;
+            UpdateBtn.Visible = false;
+
             alert.Visible = true;
             AlertIcon.Attributes.Add("class", " bi bi-exclamation-diamond");
             alert.Attributes.Add("class", " alert alert-warning  alert-dismissible ");
             alertText.Text = "Data Fields Cleaned";
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",1500)</script>");
+            ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",1500)</script>");
+
+            OriginalStateButton();
             clearFields();
             BindGridView();
             DisableFields();
+            filterText.Enabled = false;
+
 
         }
 
@@ -143,15 +252,22 @@ namespace ManageWO
         {
             NewBtn.Visible = false;
             DeleteBtn.Visible = true;
-            SaveBtn.Visible = true;
+            SaveBtn.Visible = false;
             ClearBtn.Visible = true;
             EditBtn.Visible = false;
             SearchBtn.Visible = false;
             QueryBtn.Visible = true;
             CancelBtn.Visible = false;
             RefreshBtn.Visible = true;
+            UpdateBtn.Visible = true;
+
             //BindGridView();
+            ClearBtn.Text = "CANCEL";
+            ClearBtn.Attributes.Add("class", " fw-bold btn btn-secondary ");
+            icono.Attributes.Add("class", "bi bi-x-circle-fill");
             EnableFields();
+            filterText.Enabled = false;
+
         }
 
         protected void SearchBtn_Click(object sender, EventArgs e)
@@ -187,16 +303,19 @@ namespace ManageWO
                     myTable.DataBind();
                     connection.Close();
                     /*IF DATA IS AVAILABLE*/
+
                     EditBtn.Visible = false;
                     SaveBtn.Visible = false;
                     DeleteBtn.Visible = false;
                     NewBtn.Visible = true;
                     ClearBtn.Visible = true;
                     RefreshBtn.Visible = true;
+                    UpdateBtn.Visible = false;
+
                     AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
                     alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
                     alertText.Text = "Query Executed Succesfully ";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
                 }
                 else
                 {
@@ -204,7 +323,7 @@ namespace ManageWO
                     AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
                     alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
                     alertText.Text = "Work Order Not Found";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
                 }
 
             }
@@ -239,18 +358,18 @@ namespace ManageWO
                     myTable.AllowPaging = true;
                     myTable.DataBind();
                     connection.Close();
-                    AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
-                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
-                    alertText.Text = "Query Executed Succesfully ";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
+                    //AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
+                    //alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+                    //alertText.Text = "Query Executed Succesfully ";
+                    //ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
                 }
                 else
                 {
                     alert.Visible = true;
                     AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
                     alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
-                    alertText.Text = "Work Order Not Found";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
+                    alertText.Text = "Data Not Found";
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
                 }
 
             }
@@ -263,6 +382,10 @@ namespace ManageWO
             SearchBtn.Visible = false;
             QueryBtn.Visible = true;
             CancelBtn.Visible = false;
+            filterText.Enabled = false;
+                UpdateBtn.Visible = false;
+
+
             RefreshBtn.Visible = true;
         }
 
@@ -274,6 +397,7 @@ namespace ManageWO
 
         protected void RefreshBtn_Click(object sender, EventArgs e)
         {
+            filterText.Enabled = false;
             DisableFields();
             clearFields();
             ClearBtn.Visible = false;
@@ -284,12 +408,14 @@ namespace ManageWO
             SearchBtn.Visible = false;
             RefreshBtn.Visible = true;
             QueryBtn.Visible = true;
+            UpdateBtn.Visible = false;
+
             BindGridView();
             alert.Visible = true;
             AlertIcon.Attributes.Add("class", "bi bi-list-check");
             alert.Attributes.Add("class", " alert alert-primary  alert-dismissible ");
             alertText.Text = "Updated Succesfully";
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",3000)</script>");
+            ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",3000)</script>");
 
         }
         public void clearFields()
@@ -331,10 +457,12 @@ namespace ManageWO
                     RefreshBtn.Visible = false;
                     SearchBtn.Visible = true;
                     CancelBtn.Visible = true;
+                    UpdateBtn.Visible = false;
+
                     AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
                     alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
                     alertText.Text = "Query Executed Succesfully ";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
                 }
                 else
                 {
@@ -342,7 +470,7 @@ namespace ManageWO
                     AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
                     alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
                     alertText.Text = "Data Not Found, Try Again";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
                 }
 
             }
@@ -358,11 +486,16 @@ namespace ManageWO
             RefreshBtn.Visible = false;
             QueryBtn.Visible = false;
             CancelBtn.Visible = true;
+            ClearBtn.Visible = false;
+            SaveBtn.Visible = false;
+            NewBtn.Visible = true;
             alert.Visible = true;
+            UpdateBtn.Visible = false;
+
             AlertIcon.Attributes.Add("class", "bi bi-database-fill");
             alert.Attributes.Add("class", " alert alert-info  alert-dismissible ");
             alertText.Text = "Query Enabled";
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",3000)</script>");
+            ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",3000)</script>");
             DisableFields();
         }
 
@@ -379,14 +512,17 @@ namespace ManageWO
             EditBtn.Visible = false;
             ClearBtn.Visible = false;
             NewBtn.Visible = true;
+            UpdateBtn.Visible = false;
+
             clearFields();
             inputWorkorder.Focus();
             alert.Visible = true;
             AlertIcon.Attributes.Add("class", "bi bi-exclamation-diamond");
             alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
             alertText.Text = "Query Aborted";
-            ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",3000)</script>");
+            ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",3000)</script>");
             DisableFields();
+
         }
 
         public void EnableFields()
@@ -407,7 +543,79 @@ namespace ManageWO
             inputFirstQR.Enabled = false;
             inputLastQR.Enabled = false;
             inputModel.Enabled = false;
+
+        }
+        public void OriginalStateButton()
+        {
+            ClearBtn.Attributes.Add("class", "boton btn btn-warning");
+            icono.Attributes.Add("class", "bi bi-eraser-fill");
         }
 
+        public void ModifyStateButton()
+        {
+            ClearBtn.Attributes.Add("class", "boton  fw-bold btn btn-secondary ");
+            icono.Attributes.Add("class", "bi bi-x-circle-fill");
+        }
+
+        protected void UpdateBtn_Click(object sender, EventArgs e)
+        {
+
+            string connectionString = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            string WO = inputWorkorder.Text;
+            string Model = inputModel.Text;
+            int Qty = int.Parse(inputQty.Text);
+            string InitialSN = inputFirstQR.Text;
+            string FinalSN = inputLastQR.Text;
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand4 = new SqlCommand("UpdateInfoWOSMT2", connection);
+            sqlCommand4.CommandType = CommandType.StoredProcedure;
+            connection.Open();
+            sqlCommand4.Parameters.Add("@WorkOrder", SqlDbType.VarChar, 30).Value = WO;
+            sqlCommand4.Parameters.Add("@Model", SqlDbType.VarChar, 50).Value = Model;
+            sqlCommand4.Parameters.Add("@Quantity", SqlDbType.Int).Value = Qty;
+            sqlCommand4.Parameters.Add("@InitialSN", SqlDbType.VarChar, 100).Value = InitialSN;
+            sqlCommand4.Parameters.Add("@FinalSN", SqlDbType.VarChar, 100).Value = FinalSN;
+            SqlDataReader reader = sqlCommand4.ExecuteReader();
+            reader.Read();
+            int row = reader.GetInt32(reader.GetOrdinal("RowUpdated"));
+            //sqlCommand4.ExecuteReader().Read();
+            connection.Close();
+            if(row == 1)
+            {
+                alert.Visible = true;
+                AlertIcon.Attributes.Add("class", "bi bi-check2-circle");
+                alert.Attributes.Add("class", " alert alert-success  alert-dismissible ");
+                alertText.Text = "WorkOrder updated Succesfully";
+                ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
+            }
+            else
+            {
+                alert.Visible = true;
+                AlertIcon.Attributes.Add("class", "bi bi-bug-fill");
+                alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+                alertText.Text = "Something went wrong, please contact IT dept";
+                ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
+            }
+            UpdateBtn.Visible = false;
+            SearchBtn.Visible = false;
+            RefreshBtn.Visible = true;
+            QueryBtn.Visible = true;
+            CancelBtn.Visible = false;
+            SaveBtn.Visible = false;
+            DeleteBtn.Visible = false;
+            EditBtn.Visible = false;
+            ClearBtn.Visible = false;
+            NewBtn.Visible = true;
+            clearFields();
+            DisableFields();
+            BindGridView();
+
+        }
+
+        protected void AbortBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+
 }
