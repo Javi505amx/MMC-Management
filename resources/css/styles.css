@@ -1,8 +1,18 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
 *{
     box-sizing: border-box;
     margin:0;
 }
+/*LOGIN*/
+.bg{
+  filter: drop-shadow(-10px 0px 10px #000);
+}
+
+.shadow{
+  filter: drop-shadow(4px 0px 3px  rgba(109,109,109,0.4));
+}
+/*NAVBAR*/
 nav{
   position: fixed;
 }
@@ -167,8 +177,6 @@ body{
   opacity: .50;
 }
 
-.botonera{
-}
 .boton{
 
   font-weight: bold;

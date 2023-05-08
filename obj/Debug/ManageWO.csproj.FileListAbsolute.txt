@@ -57,3 +57,6 @@ C:\Users\Javier Villalvazo\source\repos\ManageWO\obj\Debug\ManageWO.csproj.CoreC
 C:\Users\Javier Villalvazo\source\repos\ManageWO\obj\Debug\ManageWO.csproj.CopyComplete
 C:\Users\Javier Villalvazo\source\repos\ManageWO\obj\Debug\ManageWO.dll
 C:\Users\Javier Villalvazo\source\repos\ManageWO\obj\Debug\ManageWO.pdb
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\BouncyCastle.Crypto.dll
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\itextsharp.dll
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\itextsharp.xml

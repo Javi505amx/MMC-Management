@@ -43,6 +43,7 @@ img {
  .none{
   display:none;
 }
+
 }
 
 
@@ -80,5 +81,8 @@ html{
 }
 }
 
-
+.login{
+  width: 100%;
+  font-size: 1.3rem;
+}
 

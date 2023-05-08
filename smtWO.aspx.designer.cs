@@ -78,6 +78,15 @@ namespace ManageWO
         protected global::System.Web.UI.WebControls.TextBox inputQty;
 
         /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+
+        /// <summary>
         /// inputModel control.
         /// </summary>
         /// <remarks>
@@ -177,6 +186,15 @@ namespace ManageWO
         protected global::System.Web.UI.WebControls.LinkButton AbortBtn;
 
         /// <summary>
+        /// QueryBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton QueryBtn;
+
+        /// <summary>
         /// filterText control.
         /// </summary>
         /// <remarks>
@@ -186,22 +204,13 @@ namespace ManageWO
         protected global::System.Web.UI.WebControls.TextBox filterText;
 
         /// <summary>
-        /// QueryBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button QueryBtn;
-
-        /// <summary>
         /// SearchBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchBtn;
+        protected global::System.Web.UI.WebControls.LinkButton SearchBtn;
 
         /// <summary>
         /// RefreshBtn control.
@@ -210,7 +219,7 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button RefreshBtn;
+        protected global::System.Web.UI.WebControls.LinkButton RefreshBtn;
 
         /// <summary>
         /// CancelBtn control.
@@ -219,7 +228,7 @@ namespace ManageWO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelBtn;
+        protected global::System.Web.UI.WebControls.LinkButton CancelBtn;
 
         /// <summary>
         /// myTable control.
@@ -229,5 +238,14 @@ namespace ManageWO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView myTable;
+
+        /// <summary>
+        /// ExportBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ExportBtn;
     }
 }

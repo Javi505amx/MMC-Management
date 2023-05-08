@@ -3,9 +3,17 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.html.simpleparser;
+using System.Text.RegularExpressions;
+
 namespace ManageWO
 {
     public partial class smtWO : System.Web.UI.Page
@@ -36,7 +44,7 @@ namespace ManageWO
             if (e.Row.RowType == DataControlRowType.Header)
             {
 
-                e.Row.Cells[0].Text = "Action";
+                e.Row.Cells[0].Text = "Select";
                 e.Row.Cells[1].Text = "ID";
                 e.Row.Cells[2].Text = "WorkOrder";
                 e.Row.Cells[3].Text = "Model";
@@ -61,6 +69,7 @@ namespace ManageWO
             SearchBtn.Visible = false;
             filterText.Enabled = false;
             UpdateBtn.Visible = false;
+
             OriginalStateButton();
 
 
@@ -77,7 +86,7 @@ namespace ManageWO
             alert.Attributes.Add("class", " alert alert-info  alert-dismissible ");
             alertText.Text = "Bounded Succesfully";
             ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2000)</script>");
- 
+
 
 
 
@@ -140,7 +149,7 @@ namespace ManageWO
                 alert.Attributes.Add("class", " alert alert-success  alert-dismissible ");
                 alertText.Text = "WorkOrder Created Succesfully";
                 ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
-               
+
             }
             else
             {
@@ -149,7 +158,7 @@ namespace ManageWO
                 alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
                 alertText.Text = "WorkOrder Duplicated or something is missing";
                 ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
-                
+
                 DisableFields();
 
             }
@@ -383,7 +392,7 @@ namespace ManageWO
             QueryBtn.Visible = true;
             CancelBtn.Visible = false;
             filterText.Enabled = false;
-                UpdateBtn.Visible = false;
+            UpdateBtn.Visible = false;
 
 
             RefreshBtn.Visible = true;
@@ -479,6 +488,7 @@ namespace ManageWO
 
         protected void QueryBtn_Click(object sender, EventArgs e)
         {
+            clearFields();
             filterText.BackColor = System.Drawing.Color.LightYellow;
             filterText.Enabled = true;
             filterText.Focus();
@@ -490,6 +500,7 @@ namespace ManageWO
             SaveBtn.Visible = false;
             NewBtn.Visible = true;
             alert.Visible = true;
+            EditBtn.Visible = false;
             UpdateBtn.Visible = false;
 
             AlertIcon.Attributes.Add("class", "bi bi-database-fill");
@@ -580,7 +591,7 @@ namespace ManageWO
             int row = reader.GetInt32(reader.GetOrdinal("RowUpdated"));
             //sqlCommand4.ExecuteReader().Read();
             connection.Close();
-            if(row == 1)
+            if (row == 1)
             {
                 alert.Visible = true;
                 AlertIcon.Attributes.Add("class", "bi bi-check2-circle");
@@ -616,6 +627,130 @@ namespace ManageWO
         {
 
         }
+
+        protected void ExportBtn_Click(object sender, EventArgs e)
+        {
+            //ExportGridToExcel();
+            Excel();
+        }
+
+
+        private void ExportGridToExcel()
+        {
+
+            //Response.Clear();
+            //Response.Buffer = true;
+            //Response.ClearContent();
+            //Response.ClearHeaders();
+            //Response.Charset = "";
+            //string FileName = "WO SMT Query" + "_" + DateTime.Now + ".xls";
+            //StringWriter strwritter = new StringWriter();
+            //HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //Response.ContentType = "application/vnd.ms-excel";
+            //Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+            //myTable.GridLines = GridLines.Both;
+            //myTable.HeaderStyle.Font.Bold = true;
+            //myTable.RenderControl(htmltextwrtter);
+            //Response.Write(strwritter.ToString());
+            //Response.End();
+
+
+
+        }
+
+        public void Excel()
+        {
+            //1.bind with paging disabled
+            myTable.AllowPaging = false;
+            myTable.DataBind();
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=GridViewExport.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+                //To Export all pages
+                myTable.AllowPaging = false;
+                this.BindGridView();
+
+                myTable.HeaderRow.BackColor = Color.White;
+                foreach (TableCell cell in myTable.HeaderRow.Cells)
+                {
+                    cell.BackColor = myTable.HeaderStyle.BackColor;
+                }
+                foreach (GridViewRow row in myTable.Rows)
+                {
+                    row.BackColor = Color.White;
+                    foreach (TableCell cell in row.Cells)
+                    {
+                        if (row.RowIndex % 2 == 0)
+                        {
+                            cell.BackColor = myTable.AlternatingRowStyle.BackColor;
+                        }
+                        else
+                        {
+                            cell.BackColor = myTable.RowStyle.BackColor;
+                        }
+                        cell.CssClass = "textmode";
+                    }
+                }
+
+                myTable.RenderControl(hw);
+
+                //style to format numbers to string
+                string style = @"<style> .textmode { } </style>";
+                Response.Write(style);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
+
+            myTable.AllowPaging = true;
+                myTable.DataBind();
+            
+
+        }
+        
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+
+        }
+
+        //private void ExportGridToPDF()
+        //{
+        //    myTable.HeaderRow.Cells[0].Visible = false;
+        //    Response.Clear();
+        //    Response.Buffer = true;
+        //    Response.ClearContent();
+        //    Response.ClearHeaders();
+        //    Response.Charset = "";
+        //    string FileName = "WO SMT" + "_" + DateTime.Now + ".pdf";
+        //    Response.ContentType = "application/pdf";
+        //    Response.AddHeader("content-disposition", "attachment;filename=" + FileName);
+        //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        //    StringWriter sw = new StringWriter();
+        //    HtmlTextWriter hw = new HtmlTextWriter(sw);
+        //    myTable.RenderControl(hw);
+        //    StringReader sr = new StringReader(sw.ToString());
+        //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+        //    HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+        //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+        //    pdfDoc.Open();
+        //    htmlparser.Parse(sr);
+        //    pdfDoc.Close();
+        //    Response.Write(pdfDoc);
+        //    Response.End();
+        //    myTable.AllowPaging = true;
+        //    myTable.DataBind();
+        //     myTable.HeaderRow.Cells[0].Visible = true;
+        //}
+
+       
+
     }
 
 }
