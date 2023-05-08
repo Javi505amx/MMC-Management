@@ -11,7 +11,7 @@ namespace ManageWO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            userDefault.Text = Session["fullName"].ToString();
         }
     }
 }

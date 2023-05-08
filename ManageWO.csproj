@@ -78,6 +78,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="PTH-Menu.aspx" />
+    <Content Include="PTHWO.aspx" />
     <Content Include="Sidebar.aspx" />
     <Content Include="SMT-Menu.aspx" />
     <Content Include="smtWO.aspx" />
@@ -114,6 +115,13 @@
     </Compile>
     <Compile Include="PTH-Menu.aspx.designer.cs">
       <DependentUpon>PTH-Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PTHWO.aspx.cs">
+      <DependentUpon>PTHWO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PTHWO.aspx.designer.cs">
+      <DependentUpon>PTHWO.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sidebar.aspx.cs">
       <DependentUpon>Sidebar.aspx</DependentUpon>

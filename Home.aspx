@@ -24,67 +24,75 @@
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">
-    <section class="vh-100">
-        <div class="container-fluid">
+        <section class="vh-100">
+            <div class="container-fluid">
 
-            <div class="row">
+                <div class="row">
 
-                <%-- --%>
-                <div class="col-sm-6 text-dark">
-              
+                    <%-- --%>
+                    <div class="col-sm-6 text-dark">
 
 
-                            
 
-                    <%--<div class="px-5 ms-xl-4">
+
+
+                        <%--<div class="px-5 ms-xl-4">
           
               <img src="Resources/images/inv." />
           <span class="h1 fw-bold mb-0">Login</span>
         </div>--%>
 
 
-                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-4 pt-5 pt-xl-0 mt-xl-n5 animate__animated animate__fadeInDownBig " style="border-radius: 25px">
+                        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-4 pt-5 pt-xl-0 mt-xl-n5 " style="border-radius: 25px">
+                            
+                            <div style="width: 90%; border-radius: 25px" class="text-center">
+                                <%-- alerta --%>
+                            <div runat="server" id="alert" visible="false" class=" d-flex align-items-center " role="alert">
+                                <span id="AlertIcon" runat="server" class=" flex-shrink-0 me-2" role="img"></span>
+                                <asp:Label runat="server" CssClass="fw-bold" ID="alertText" Text="">
+                        
+                                </asp:Label>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                                <h4 class=" text-center h4 fw-bold  texto  ">WELCOME TO MMC</h4>
+                                <img class="" src="Resources/images/inv.png" style="display: flex; text-align: center; width: 100%" /><br />
 
-                        <div style="width: 90%; border-radius: 25px" class="text-center">
-                            <h4 class=" text-center h4 fw-bold  texto  ">WELCOME TO MMC</h4>
-                            <img  class="" src="Resources/images/inv.png" style=" display:flex; text-align:center; width: 100%" /><br />
 
 
+                                <div class="form-outline mb-4">
+                                    <asp:Label runat="server" class=" h5 fw-bold  form-label texto" for="form2Example18">USER</asp:Label>
+                                    <asp:TextBox runat="server" ID="txtUsername" AutoCompleteType="Disabled" required="true" class="texto h5 form-control form-control-lg shadow text-center"  AutoPostBack="true" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
 
-                            <div class="form-outline mb-4">
-                                <asp:Label runat="server" class=" h5 fw-bold  form-label texto" for="form2Example18">USER</asp:Label>
-                                <asp:TextBox runat="server"  id="form2Example18" class="texto h5 form-control form-control-lg shadow text-center" ></asp:TextBox>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <asp:Label runat="server" class=" h5 fw-bold form-label texto" for="form2Example28">PASSWORD</asp:Label>
+                                    <asp:TextBox runat="server" ID="txtPassword" AutoPostBack="true" required="true" AutoCompleteType="Disabled" type="password" class=" h5 form-control form-control-lg shadow texto text-center"></asp:TextBox>
+                                </div>
+
+                                <div class="pt-1 mb-4">
+                                    <asp:LinkButton runat="server" ID="LoginBtn" class="fw-bold btn btn-primary btn-lg btn-block shadow texto  login " type="button" OnClick="LoginBtn_Click">LOGIN</asp:LinkButton>
+                                </div>
+
+                                <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
+                                <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p>
 
                             </div>
-
-                            <div class="form-outline mb-4">
-                                <asp:Label runat="server" class=" h5 fw-bold form-label texto" for="form2Example28">PASSWORD</asp:Label>
-                                <asp:TextBox runat="server"  AutoCompleteType="Disabled" type="password" id="form2Example28" class=" h5 form-control form-control-lg shadow texto text-center" ></asp:TextBox>
-                            </div>
-
-                            <div class="pt-1 mb-4">
-                                <asp:LinkButton runat="server" class="fw-bold btn btn-primary btn-lg btn-block shadow texto  login " type="button">LOGIN</asp:LinkButton>
-                            </div>
-
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
-                            <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p>
-
                         </div>
+                        <footer class=" text-center  " style="position: fixed; bottom: 0; left: 9.5vw">
+                            <h6><b><%:DateTime.Now.Year%>  &copy; Designed for MMC Inventronics</b></h6>
+                        </footer>
                     </div>
-                    <footer class=" text-center  animate__animated animate__fadeInDownBig" style=" position:fixed; bottom:0; left:9.5vw ">
-                        <h6 ><b><%:DateTime.Now.Year%>  &copy; Designed for MMC Inventronics</b></h6>
-                    </footer>
+
+                    <div class="col-sm-6 px-0 d-none d-sm-block ">
+                        <img src="Resources/images/bg.png" alt="Login image" class="w-100 vh-100 bg" style="object-fit: cover; object-position: left;" />
+
+
+                    </div>
                 </div>
 
-                <div class="col-sm-6 px-0 d-none d-sm-block animate__animated animate__animated animate__fadeInDownBig ">
-                    <img src="Resources/images/bg.png" alt="Login image" class="w-100 vh-100 bg" style="object-fit: cover; object-position: left;" />
-
-
-                </div>
             </div>
-
-        </div>
-    </section>
-        </form>
+        </section>
+    </form>
 </body>
 </html>

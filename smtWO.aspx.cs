@@ -146,7 +146,7 @@ namespace ManageWO
 
                 alert.Visible = true;
                 AlertIcon.Attributes.Add("class", " bi bi-database-check");
-                alert.Attributes.Add("class", " alert alert-success  alert-dismissible ");
+                alert.Attributes.Add("class", " alert alert-success  alert-dismissible");
                 alertText.Text = "WorkOrder Created Succesfully";
                 ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",4000)</script>");
 
