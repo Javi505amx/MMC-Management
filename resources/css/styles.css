@@ -13,9 +13,6 @@
   filter: drop-shadow(4px 0px 3px  rgba(109,109,109,0.4));
 }
 /*NAVBAR*/
-nav{
-  position: fixed;
-}
 body{
   font-size: 'Nunito';
     width: 100%;
@@ -26,14 +23,14 @@ body{
     transform: scale(1.05);
     font-weight: bold;
 } */
- .navbar-brand{
+ /* .navbar-brand{
     margin: 0;
     padding-right: 0;
  }
   .navbar{
     width:100%;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  }
+  } */
   .container > img{
     max-width:40vh;
   }
@@ -187,4 +184,83 @@ body{
   transform: scale(1.06);
   
   color: black !important;
+}
+
+
+/**Gridpager**/
+.GridPager a, .GridPager span
+    {
+        display: block;
+        height: 25px;
+        width: 30px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        
+
+    }
+    .GridPager a
+    {
+      background-color: #333;
+        color: #fff;
+        border: 1px solid #969696;
+    }
+    .GridPager span
+    {
+      font-weight: bold;
+        background-color: #A1DCF2;
+        color: #000;
+        border: 1px solid #3AC0F2;
+    }
+
+    /**sidebar*/
+    body {
+      background-color: #fbfbfb;
+      }
+      @media (min-width: 991.98px) {
+      main {
+      padding-left: 240px;
+      }
+      }
+      
+      /* Sidebar */
+      @media (min-width: 991.98px) {
+        main {
+          padding-left: 240px;
+        }
+      }
+      
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        padding: 58px 0 0; /* Height of navbar */
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+        width: 240px;
+        z-index: 600;
+      }
+      
+      @media (max-width: 991.98px) {
+        .sidebar {
+          width: 100%;
+        }
+      }
+      .sidebar .active {
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+      }
+      
+      .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: 0.5rem;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+      }
+
+a>span:hover, a>i:hover{
+  color:lightskyblue;
 }

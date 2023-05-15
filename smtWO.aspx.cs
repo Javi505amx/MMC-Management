@@ -36,7 +36,6 @@ namespace ManageWO
                 BindGridView();
                 OriginalStateButton();
             }
-
         }
 
         protected void myTable_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -106,7 +105,7 @@ namespace ManageWO
             ClearBtn.Visible = true;
             SaveBtn.Visible = true;
             DeleteBtn.Visible = false;
-            NewBtn.Visible = true;
+            NewBtn.Visible = false;
             EditBtn.Visible = false;
             SearchBtn.Visible = false;
             QueryBtn.Visible = true;
@@ -282,61 +281,49 @@ namespace ManageWO
         protected void SearchBtn_Click(object sender, EventArgs e)
         {
 
-            //string ConDB = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-            //SqlConnection sqlcon = new SqlConnection(ConDB);
-            //sqlcon.Open();
-            //SqlCommand sqlcmd = new SqlCommand();
-            //string sqlquery = "select * from [dbo].[WODetails] where workorder like '%'+@Workorder+'%'";
-            //sqlcmd.CommandText = sqlquery;
-            //sqlcmd.Connection = sqlcon;
-            //sqlcmd.Parameters.AddWithValue("workorder", filterText.Text);
-            //DataTable dt = new DataTable();
-            //SqlDataAdapter adapter = new SqlDataAdapter(sqlcmd);
-            //adapter.Fill(dt);
-            //myTable.DataSource = dt;
-            //myTable.DataBind();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
-            {
-                SqlCommand sqlCommand = new SqlCommand("GetWOSMTFilter", connection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                connection.Open();
-                sqlCommand.Parameters.Add("@Workorder", SqlDbType.VarChar, 30).Value = filterText.Text;
-                SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
-                DataSet data = new DataSet();
-                adapter.Fill(data);
-                if (data.Tables.Count > 0)
-                {
-                    DisableFields();
-                    myTable.DataSource = data.Tables[0];
-                    myTable.AllowPaging = true;
-                    myTable.DataBind();
-                    connection.Close();
-                    /*IF DATA IS AVAILABLE*/
 
-                    EditBtn.Visible = false;
-                    SaveBtn.Visible = false;
-                    DeleteBtn.Visible = false;
-                    NewBtn.Visible = true;
-                    ClearBtn.Visible = true;
-                    RefreshBtn.Visible = true;
-                    UpdateBtn.Visible = false;
+            //using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
+            //{
+            //    SqlCommand sqlCommand = new SqlCommand("GetWOSMTFilter", connection);
+            //    sqlCommand.CommandType = CommandType.StoredProcedure;
+            //    connection.Open();
+            //    sqlCommand.Parameters.Add("@Workorder", SqlDbType.VarChar, 30).Value = filterText.Text;
+            //    SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+            //    DataSet data = new DataSet();
+            //    adapter.Fill(data);
+            //    if (data.Tables.Count > 0)
+            //    {
+            //        DisableFields();
+            //        myTable.DataSource = data.Tables[0];
+            //        myTable.AllowPaging = true;
+            //        myTable.DataBind();
+            //        connection.Close();
+            //        /*IF DATA IS AVAILABLE*/
 
-                    AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
-                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
-                    alertText.Text = "Query Executed Succesfully ";
-                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
-                }
-                else
-                {
-                    alert.Visible = true;
-                    AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
-                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
-                    alertText.Text = "Work Order Not Found";
-                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
-                }
+            //        EditBtn.Visible = false;
+            //        SaveBtn.Visible = false;
+            //        DeleteBtn.Visible = false;
+            //        NewBtn.Visible = true;
+            //        ClearBtn.Visible = true;
+            //        RefreshBtn.Visible = true;
+            //        UpdateBtn.Visible = false;
 
-            }
+            //        AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
+            //        alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+            //        alertText.Text = "Query Executed Succesfully ";
+            //        ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
+            //    }
+            //    else
+            //    {
+            //        alert.Visible = true;
+            //        AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
+            //        alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+            //        alertText.Text = "Work Order Not Found";
+            //        ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
+            //    }
 
+            //}
+            DataFilter();
         }
 
         protected void inputWorkorder_TextChanged(object sender, EventArgs e)
@@ -394,6 +381,7 @@ namespace ManageWO
             filterText.Enabled = false;
             UpdateBtn.Visible = false;
 
+            footer.Text = Convert.ToString(DateTime.Now);
 
             RefreshBtn.Visible = true;
         }
@@ -441,48 +429,50 @@ namespace ManageWO
 
         protected void filterText_TextChanged(object sender, EventArgs e)
         {
-            DisableFields();
-            using (SqlConnection connection1 = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
-            {
-                SqlCommand sqlCommand1 = new SqlCommand("GetWOSMTFilterLike", connection1);
-                sqlCommand1.CommandType = CommandType.StoredProcedure;
-                connection1.Open();
-                sqlCommand1.Parameters.Add("@data", SqlDbType.VarChar, 100).Value = filterText.Text;
-                SqlDataAdapter adapter1 = new SqlDataAdapter(sqlCommand1);
-                DataSet data1 = new DataSet();
-                adapter1.Fill(data1);
-                if (data1.Tables.Count > 0)
-                {
-                    myTable.DataSource = data1.Tables[0];
-                    myTable.AllowPaging = true;
-                    myTable.DataBind();
-                    connection1.Close();
-                    /*IF DATA IS AVAILABLE*/
-                    EditBtn.Visible = false;
-                    SaveBtn.Visible = false;
-                    DeleteBtn.Visible = false;
-                    NewBtn.Visible = true;
-                    ClearBtn.Visible = true;
-                    RefreshBtn.Visible = false;
-                    SearchBtn.Visible = true;
-                    CancelBtn.Visible = true;
-                    UpdateBtn.Visible = false;
+            DataFilter();
+            
+            //DisableFields();
+            //using (SqlConnection connection1 = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
+            //{
+            //    SqlCommand sqlCommand1 = new SqlCommand("GetWOSMTFilterLike", connection1);
+            //    sqlCommand1.CommandType = CommandType.StoredProcedure;
+            //    connection1.Open();
+            //    sqlCommand1.Parameters.Add("@data", SqlDbType.VarChar, 100).Value = filterText.Text;
+            //    SqlDataAdapter adapter1 = new SqlDataAdapter(sqlCommand1);
+            //    DataSet data1 = new DataSet();
+            //    adapter1.Fill(data1);
+            //    if (data1.Tables.Count > 0)
+            //    {
+            //        myTable.DataSource = data1.Tables[0];
+            //        myTable.AllowPaging = true;
+            //        myTable.DataBind();
+            //        connection1.Close();
+            //        /*IF DATA IS AVAILABLE*/
+            //        EditBtn.Visible = false;
+            //        SaveBtn.Visible = false;
+            //        DeleteBtn.Visible = false;
+            //        NewBtn.Visible = true;
+            //        ClearBtn.Visible = true;
+            //        RefreshBtn.Visible = false;
+            //        SearchBtn.Visible = true;
+            //        CancelBtn.Visible = true;
+            //        UpdateBtn.Visible = false;
 
-                    AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
-                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
-                    alertText.Text = "Query Executed Succesfully ";
-                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
-                }
-                else
-                {
-                    alert.Visible = true;
-                    AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
-                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
-                    alertText.Text = "Data Not Found, Try Again";
-                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
-                }
+            //        AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
+            //        alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+            //        alertText.Text = "Query Executed Succesfully ";
+            //        ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
+            //    }
+            //    else
+            //    {
+            //        alert.Visible = true;
+            //        AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
+            //        alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+            //        alertText.Text = "Data Not Found, Try Again";
+            //        ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
+            //    }
 
-            }
+            //}
 
         }
 
@@ -710,46 +700,75 @@ namespace ManageWO
             }
 
             myTable.AllowPaging = true;
-                myTable.DataBind();
-            
+            myTable.DataBind();
+
 
         }
-        
+
         public override void VerifyRenderingInServerForm(Control control)
         {
 
         }
 
-        //private void ExportGridToPDF()
-        //{
-        //    myTable.HeaderRow.Cells[0].Visible = false;
-        //    Response.Clear();
-        //    Response.Buffer = true;
-        //    Response.ClearContent();
-        //    Response.ClearHeaders();
-        //    Response.Charset = "";
-        //    string FileName = "WO SMT" + "_" + DateTime.Now + ".pdf";
-        //    Response.ContentType = "application/pdf";
-        //    Response.AddHeader("content-disposition", "attachment;filename=" + FileName);
-        //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        //    StringWriter sw = new StringWriter();
-        //    HtmlTextWriter hw = new HtmlTextWriter(sw);
-        //    myTable.RenderControl(hw);
-        //    StringReader sr = new StringReader(sw.ToString());
-        //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-        //    HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-        //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-        //    pdfDoc.Open();
-        //    htmlparser.Parse(sr);
-        //    pdfDoc.Close();
-        //    Response.Write(pdfDoc);
-        //    Response.End();
-        //    myTable.AllowPaging = true;
-        //    myTable.DataBind();
-        //     myTable.HeaderRow.Cells[0].Visible = true;
-        //}
+        protected void logoutBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Home.aspx");
+        }
 
-       
+
+        protected void RegresarBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Default.aspx");
+
+        }
+
+
+        public void DataFilter()
+        {
+            DisableFields();
+            using (SqlConnection connection1 = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
+            {
+                SqlCommand sqlCommand1 = new SqlCommand("GetWOSMTFilterLike", connection1);
+                sqlCommand1.CommandType = CommandType.StoredProcedure;
+                connection1.Open();
+                sqlCommand1.Parameters.Add("@data", SqlDbType.VarChar, 100).Value = filterText.Text;
+                SqlDataAdapter adapter1 = new SqlDataAdapter(sqlCommand1);
+                DataSet data1 = new DataSet();
+                adapter1.Fill(data1);
+                if (data1.Tables.Count > 0)
+                {
+                    myTable.DataSource = data1.Tables[0];
+                    myTable.AllowPaging = true;
+                    myTable.DataBind();
+                    connection1.Close();
+                    /*IF DATA IS AVAILABLE*/
+                    EditBtn.Visible = false;
+                    SaveBtn.Visible = false;
+                    DeleteBtn.Visible = false;
+                    NewBtn.Visible = true;
+                    ClearBtn.Visible = true;
+                    RefreshBtn.Visible = false;
+                    SearchBtn.Visible = true;
+                    CancelBtn.Visible = true;
+                    UpdateBtn.Visible = false;
+
+                    AlertIcon.Attributes.Add("class", "bi bi-clipboard2-data");
+                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+                    alertText.Text = "Query Executed Succesfully ";
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",2500)</script>");
+                }
+                else
+                {
+                    alert.Visible = true;
+                    AlertIcon.Attributes.Add("class", " bi bi-exclamation-octagon");
+                    alert.Attributes.Add("class", " alert alert-danger  alert-dismissible ");
+                    alertText.Text = "Data Not Found, Try Again";
+                    ClientScript.RegisterStartupScript(GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + alert.ClientID + "').style.display='none'\",5000)</script>");
+                }
+
+            }
+        }
+
 
     }
 

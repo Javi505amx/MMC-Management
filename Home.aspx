@@ -61,17 +61,17 @@
 
                                 <div class="form-outline mb-4">
                                     <asp:Label runat="server" class=" h5 fw-bold  form-label texto" for="form2Example18">USER</asp:Label>
-                                    <asp:TextBox runat="server" ID="txtUsername" AutoCompleteType="Disabled" required="true" class="texto h5 form-control form-control-lg shadow text-center"  AutoPostBack="true" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txtUsername" AutoCompleteType="Disabled"  class="texto h5 form-control form-control-lg shadow text-center"  AutoPostBack="true" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
 
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <asp:Label runat="server" class=" h5 fw-bold form-label texto" for="form2Example28">PASSWORD</asp:Label>
-                                    <asp:TextBox runat="server" ID="txtPassword" AutoPostBack="true" required="true" AutoCompleteType="Disabled" type="password" class=" h5 form-control form-control-lg shadow texto text-center"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txtPassword" ValidateRequestMode="Enabled"  AutoCompleteType="Disabled" type="password" class=" h5 form-control form-control-lg shadow texto text-center"></asp:TextBox>
                                 </div>
 
                                 <div class="pt-1 mb-4">
-                                    <asp:LinkButton runat="server" ID="LoginBtn" class="fw-bold btn btn-primary btn-lg btn-block shadow texto  login " type="button" OnClick="LoginBtn_Click">LOGIN</asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="LoginBtn" CausesValidation="true" class="fw-bold btn btn-primary btn-lg btn-block shadow texto  login " type="button" OnClick="LoginBtn_Click">LOGIN</asp:LinkButton>
                                 </div>
 
                                 <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>

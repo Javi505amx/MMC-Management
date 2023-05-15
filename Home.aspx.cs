@@ -23,9 +23,9 @@ namespace ManageWO
                     myCookie.Expires = DateTime.Now.AddDays(-1d);
                     Response.Cookies.Add(myCookie);
                 }
-                if ((string)Session["userLogin"] != null)
+                if ((string)Session["user"] != null)
                 {
-                    Session.Remove("userLogin");
+                    Session.Remove("user");
                 }
             }
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -42,7 +42,7 @@ namespace ManageWO
             //Session["userLogin"] = lblUser.Text;
             Session["password"] = txtPassword.Text;
 
-            string conect = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            string conect = ConfigurationManager.ConnectionStrings["login"].ConnectionString;
             SqlConnection cn = new SqlConnection(conect);
             SqlCommand cmd = new SqlCommand("GetFullName", cn)
             {
@@ -53,8 +53,8 @@ namespace ManageWO
             SqlDataReader sqlDataReader = cmd.ExecuteReader();
             sqlDataReader.Read();
             //string username = sqlDataReader.GetString(sqlDataReader.GetOrdinal("Username"));
-            string area = sqlDataReader.GetString(sqlDataReader.GetOrdinal("Area"));
             string fullName = sqlDataReader.GetString(sqlDataReader.GetOrdinal("FullName"));
+            string area = sqlDataReader.GetString(sqlDataReader.GetOrdinal("Area"));
             cn.Close();
             Session["fullName"] = fullName;
             Session["area"] = area;
@@ -124,6 +124,8 @@ namespace ManageWO
                     //labelwrong.ForeColor = Color.Red;
                     txtUsername.Focus();
                     txtPassword.Focus();
+                    txtPassword.Text = null;
+                    txtUsername.Text = null;
                 }
                 sqlCon.Close();
             }

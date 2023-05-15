@@ -27,42 +27,43 @@
 
 
     </script>
-    <script type="text/javascript">
-        function SetButtonStatus(sender, target) {
-            Page_ClientValidate();
-            if (!Page_IsValid)
-
-
-                document.getElementById(target).disabled = true;
-
-            else
-                document.getElementById(target).disabled = false;
-
-        }
-    </script>
+    
 
     <title>WO SMT</title>
 </head>
 <body>
-    <nav class="navbar navbar-fixed-top navbar-expand-sm  navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="./Default.aspx">
-                <img id="logo" src="./resources/images/inv.png" /></a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item"><a class="nav-link " runat="server" href="~/SMT-Menu.aspx">GO BACK</a></li>
-                    <%--<li class="nav-item"><a class="nav-link" runat="server" href="~/PTH-Menu.aspx">EXIT</a></li>--%>
-                </ul>
+    <form id="form2" runat="server">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark shadow">
+            <div class="container  ">
+                <a class="navbar-brand m-auto" href="./Default.aspx">
+                    <img id="logo" src="./resources/images/inv.png" /></a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse  d-sm-inline-flex mx-auto ">
+                    <ul class="navbar-nav mx-auto">
+                        <%-- TODO: Revisar los ul>li acftion de mandar a otra pagina --%>
+                        <%--<li class="nav-item"><a class="nav-link  text-white" runat="server" href="~/Default.aspx">Home</a></li>--%>
+                        <li class="nav-item"><a class=" nav-link active text-white" runat="server" href="~/">SMT</a></li>
+                        <li class="nav-item"><a class=" nav-link text-white" runat="server" href="~/PTWHO.aspx">PTH</a></li>
+                    </ul>
+                </div>
+
             </div>
-        </div>
-    </nav>
+
+            <ul class=" navbar-collapse collapse navbar-nav ">
+                <li>
+                <asp:LinkButton runat="server" class=" fw-bold btn btn-primary me-md-2 btn-sm" type="button" ID="RegresarBtn" OnClick="RegresarBtn_Click"><span class=" fw-bold bi bi-backspace-fill" ></span>&nbsp;BACK</asp:LinkButton>
+                <asp:LinkButton type="button" ID="logoutBtn" runat="server" class="btn btn-danger fw-bold btn-sm" OnClick="logoutBtn_Click"><span runat="server" class="bi bi-box-arrow-left">&nbsp;EXIT</span></asp:LinkButton>
+                </li>
+            </ul>
 
 
-    <form id="form1" runat="server">
+
+        </nav>
+
+
         <div class="contenedor-wo">
             <div class="content-index">
                 <%-- alerta --%>
@@ -74,9 +75,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
+              
+                    
+
+                   <%-- <div class=" navbar-collapse collapse  d-grid gap-2 d-md-flex justify-content-md-end">
+                        <asp:LinkButton runat="server" class="btn btn-primary me-md-2" type="button"><span class="bi bi-backspace-fill"></span>&nbsp;BACK</asp:LinkButton>
+                        <button class="btn btn-primary" type="button">Button</button>
+                    </div>--%>
+                
 
                 <h2 style="text-align: center;" class="">WORK ORDER SMT</h2>
-
+                <hr />
+                
                 <div class="form-group col-md-0">
                     <asp:Label CssClass="fw-bold form-control" Visible="false" runat="server" for="inputID">ID</asp:Label>
 
@@ -100,8 +110,8 @@
                     <div class="form-group  row g-2 ">
                         <div class="form-group col-md-4">
                             <asp:Label runat="server" CssClass="fw-bold form-control label">Quantity</asp:Label>
-                            <asp:TextBox runat="server" Style="text-transform: uppercase" AutoCompleteType="Disabled" AutoPostBack="true" type="text" onkeyup="SetButtonStatus(this, 'Button1')" class="form-control" ID="inputQty" placeholder="0000"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ForeColor="Red" Font-Bold="true" ControlToValidate="inputQty" runat="server" ErrorMessage="only numbers allowed" ValidationExpression="\d+" SetFocusOnError="true"> </asp:RegularExpressionValidator>
+                            <asp:TextBox runat="server" Style="text-transform: uppercase" AutoCompleteType="Disabled" AutoPostBack="true" type="number"  class="form-control" ID="inputQty" placeholder="0000"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="form-text" ForeColor="Red" Font-Bold="true" ControlToValidate="inputQty" runat="server" ErrorMessage="only numbers allowed" ValidationExpression="\d+" SetFocusOnError="true"> </asp:RegularExpressionValidator>
                         </div>
                         <div class="form-group col-md-8">
                             <asp:Label runat="server" CssClass="fw-bold form-control label" for="inputModel">Model</asp:Label>
@@ -157,7 +167,7 @@
                             <div class="form-group">
                                 <div class="rounded shadow bg-white table-responsive ">
 
-                                    <asp:GridView runat="server" ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true"  AutoGenerateColumns="false" DataKeyNames="WorkOrder" AutoGenerateSelectButton="true" AllowPaging="true">
+                                    <asp:GridView runat="server" ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" DataKeyNames="WorkOrder" AutoGenerateSelectButton="true" AllowPaging="true">
                                         <AlternatingRowStyle BackColor="White" />
                                         <RowStyle BackColor="#f5f5f5" />
                                         <SelectedRowStyle BackColor="#00404d" CssClass="opacity" Font-Bold="true" ForeColor="White" />
@@ -172,24 +182,25 @@
                                             <asp:BoundField DataField="InitialSN" HeaderText="InitialSN" SortExpression="InitialSN"></asp:BoundField>
                                             <asp:BoundField DataField="FinalSN" HeaderText="FinalSN" SortExpression="FinalSN"></asp:BoundField>
                                         </Columns>
-                                        <PagerStyle HorizontalAlign="Right" BackColor="#69757D" CssClass="GridPager" ForeColor="White" />
+                                        <PagerStyle HorizontalAlign="Left" BackColor="#69757D" CssClass="GridPager"  />
                                     </asp:GridView>
                                     <%--<asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (100) ID, WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>--%>
                                 </div>
                             </div>
                         </div>
-                            <asp:LinkButton CssClass="btn btn-dark fw-bold" ID="ExportBtn" runat="server" Visible="true" OnClick="ExportBtn_Click">
+                        <asp:LinkButton CssClass="btn btn-dark fw-bold" ID="ExportBtn" runat="server" Visible="true" OnClick="ExportBtn_Click">
                 <span class="bi bi-printer-fill" aria-hidden="true"></span> &nbsp;Exportar
-                    </asp:LinkButton>
+                        </asp:LinkButton>
                     </div>
                     <hr />
-                
+
                 </div>
                 <%-- Fin off Gridview --%>
             </div>
             <hr />
             <footer>
-                <p><b><i>DATE:   <%: DateTime.Now.Day%>/<%: DateTime.Now.Month%>/<%:DateTime.Now.Year%></i> <i>Last Updated:</i> <%:DateTime.Now.Hour%>:<%:DateTime.Now.Minute%>:<%:DateTime.Now.Second%> &copy;Designed for MMC Inventronics</b></p>
+                
+                <p><b>Last Updated:</b><asp:Label runat="server" ID="footer" Visible="true"></asp:Label> <b>&copy;Designed for MMC Inventronics</b></p>
             </footer>
         </div>
     </form>
