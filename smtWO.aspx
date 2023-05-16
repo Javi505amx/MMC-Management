@@ -24,11 +24,7 @@
         function disableBack() { window.history.forward(); }
         setTimeout("disableBack()", 0);
         window.onunload = function () { null };
-
-
     </script>
-    
-
     <title>WO SMT</title>
 </head>
 <body>
@@ -43,27 +39,23 @@
                 </button>
                 <div class="collapse navbar-collapse  d-sm-inline-flex mx-auto ">
                     <ul class="navbar-nav mx-auto">
-                        <%-- TODO: Revisar los ul>li acftion de mandar a otra pagina --%>
                         <%--<li class="nav-item"><a class="nav-link  text-white" runat="server" href="~/Default.aspx">Home</a></li>--%>
-                        <li class="nav-item"><a class=" nav-link active text-white" runat="server" href="~/">SMT</a></li>
-                        <li class="nav-item"><a class=" nav-link text-white" runat="server" href="~/PTWHO.aspx">PTH</a></li>
+                        <li class="nav-item"><asp:LinkButton class=" nav-link active text-white" runat="server" ToolTip="Create, Modify & Delete WO" PostBackUrl="~/PTHWO.aspx">WO</asp:LinkButton></li>
+                        <li class="nav-item"><asp:LinkButton class=" nav-link text-white" runat="server" ToolTip="Upload, Review & Delete KN" >KN</asp:LinkButton></li>
+                        <li class="nav-item"><asp:LinkButton class=" nav-link text-white" ToolTip="Upload & Delete SN" runat="server" href="~/">FS</asp:LinkButton></li>
+                        <li class="nav-item"><asp:LinkButton class=" nav-link text-white" ToolTip="Upload & Delete SN" runat="server" href="~/">ALTERNS</asp:LinkButton></li>
+
                     </ul>
                 </div>
-
             </div>
 
             <ul class=" navbar-collapse collapse navbar-nav ">
                 <li>
-                <asp:LinkButton runat="server" class=" fw-bold btn btn-primary me-md-2 btn-sm" type="button" ID="RegresarBtn" OnClick="RegresarBtn_Click"><span class=" fw-bold bi bi-backspace-fill" ></span>&nbsp;BACK</asp:LinkButton>
-                <asp:LinkButton type="button" ID="logoutBtn" runat="server" class="btn btn-danger fw-bold btn-sm" OnClick="logoutBtn_Click"><span runat="server" class="bi bi-box-arrow-left">&nbsp;EXIT</span></asp:LinkButton>
+                <asp:LinkButton runat="server" class=" fw-bold btn btn-primary me-md-2  btn-sm" type="button" ID="RegresarBtn" OnClick="RegresarBtn_Click" title="BACK"><span class=" fw-bold bi bi-backspace-fill" ></span></asp:LinkButton>
+                <asp:LinkButton type="button" ID="logoutBtn" runat="server" class="btn btn-danger fw-bold  btn-sm" OnClick="logoutBtn_Click" title="LOGOUT"><span runat="server" class="bi bi-box-arrow-left"></span></asp:LinkButton>
                 </li>
             </ul>
-
-
-
         </nav>
-
-
         <div class="contenedor-wo">
             <div class="content-index">
                 <%-- alerta --%>
@@ -74,19 +66,8 @@
                     </asp:Label>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-
-              
-                    
-
-                   <%-- <div class=" navbar-collapse collapse  d-grid gap-2 d-md-flex justify-content-md-end">
-                        <asp:LinkButton runat="server" class="btn btn-primary me-md-2" type="button"><span class="bi bi-backspace-fill"></span>&nbsp;BACK</asp:LinkButton>
-                        <button class="btn btn-primary" type="button">Button</button>
-                    </div>--%>
-                
-
                 <h2 style="text-align: center;" class="">WORK ORDER SMT</h2>
                 <hr />
-                
                 <div class="form-group col-md-0">
                     <asp:Label CssClass="fw-bold form-control" Visible="false" runat="server" for="inputID">ID</asp:Label>
 
@@ -98,14 +79,7 @@
                     <div class="form-group col-md-6">
                         <asp:Label CssClass="fw-bold form-control label" runat="server">Work Order</asp:Label>
                         <asp:TextBox runat="server" Style="text-transform: uppercase" type="text" class="form-control" ID="inputWorkorder" aria-describedby="basic-addon1" placeholder="WORK ORDER" OnTextChanged="inputWorkorder_TextChanged"></asp:TextBox>
-                        <%--<asp:RequiredFieldValidator ID="pass" runat="server" ControlToValidate="inputWorkorder" ErrorMessage="Please enter a password" ForeColor="Red"></asp:RequiredFieldValidator>--%>
 
-
-                        <%--           <div class="form-group col-md-2">
-                        <asp:Label CssClass="fw-bold " ID="label" BorderColor="#f5f5f5" BackColor="#f5f5f5" runat="server" ForeColor="#f5f5f5"> Hola</asp:Label>
-
-                        <asp:Button runat="server" Text="SEARCH" class=" form-control btn btn-outline-dark fw-bold " ID="SearchBtn" OnClick="SearchBtn_Click"></asp:Button>
-                    </div>--%>
                     </div>
                     <div class="form-group  row g-2 ">
                         <div class="form-group col-md-4">
@@ -138,14 +112,6 @@
                         <asp:LinkButton ID="UpdateBtn" runat="server" type="submit" Text="EDIT" class=" boton btn btn-warning" OnClick="UpdateBtn_Click" Visible="false"><i class="bi bi-database-fill-check"></i> UPDATE</asp:LinkButton>
                         <asp:LinkButton ID="AbortBtn" runat="server" type="submit" Text="EDIT" class=" boton btn btn-warning" OnClick="AbortBtn_Click" Visible="false"><i class="bi bi-database-fill-check"></i> UPDATE</asp:LinkButton>
                     </div>
-                    <%-- <div class="form-group mb-4">
-
-                    <asp:LinkButton ID="LinkButton1" runat="server" type="submit" Text="NEW" class=" btn btn-info fw-bold text-white" OnClick="NewBtn_Click" Visible="true" ><i class="bi bi-plus-circle"></i> NEW</asp:LinkButton>
-                    <asp:LinkButton ID="LinkButton2" runat="server" type="submit" Text="SAVE" class=" btn btn-success fw-bold" OnClick="SaveBtn_Click" Visible="true" ><i class="bi bi-check-circle-fill"></i> SAVE</asp:LinkButton>
-                    <asp:LinkButton ID="LinkButton3" runat="server" type="submit" Text="DELETE" class="btn btn-danger fw-bold" OnClick="DeleteBtn_Click" Visible="true" ><i class="bi bi-trash3-fill"></i> DELETE</asp:LinkButton>
-                    <asp:LinkButton ID="LinkButton4" runat="server" type="submit"  class="btn btn-warning fw-bold text-white" OnClick="ClearBtn_Click" Visible="true" ><span runat="server" id="Span1" class="bi bi-eraser-fill"></span> CLEAR </asp:LinkButton>
-                    <asp:LinkButton ID="LinkButton5" runat="server" type="submit" Text="EDIT" class="btn btn-danger fw-bold text-white" OnClick="EditBtn_Click" Visible="true" ><i class="bi bi-pencil-square"></i> EDIT</asp:LinkButton>
-                </div>--%>
                     <hr />
                     <div class="form-group">
                         <h2 style="text-align: center;" class="">DATA FILTER</h2>
@@ -166,7 +132,6 @@
                         <div class="col-md-12s col-md-offset-1">
                             <div class="form-group">
                                 <div class="rounded shadow bg-white table-responsive ">
-
                                     <asp:GridView runat="server" ID="myTable" OnRowDataBound="myTable_RowDataBound" OnPageIndexChanging="myTable_PageIndexChanging" OnSelectedIndexChanged="myTable_SelectedIndexChanged" HeaderStyle-CssClass="bg-secondary text-white" CssClass="table table-bordered table-condensed table-responsive table-hover small-top-margin" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" DataKeyNames="WorkOrder" AutoGenerateSelectButton="true" AllowPaging="true">
                                         <AlternatingRowStyle BackColor="White" />
                                         <RowStyle BackColor="#f5f5f5" />
@@ -184,13 +149,13 @@
                                         </Columns>
                                         <PagerStyle HorizontalAlign="Left" BackColor="#69757D" CssClass="GridPager"  />
                                     </asp:GridView>
-                                    <%--<asp:SqlDataSource runat="server" ID="GridWO_data" ConnectionString="<%$ ConnectionStrings:con %>" SelectCommand="SELECT TOP (100) ID, WorkOrder, Model, Quantity, InitialSN, FinalSN FROM WODetails ORDER BY WorkOrder DESC"></asp:SqlDataSource>--%>
                                 </div>
                             </div>
                         </div>
                         <asp:LinkButton CssClass="btn btn-dark fw-bold" ID="ExportBtn" runat="server" Visible="true" OnClick="ExportBtn_Click">
                 <span class="bi bi-printer-fill" aria-hidden="true"></span> &nbsp;Exportar
                         </asp:LinkButton>
+
                     </div>
                     <hr />
 
@@ -199,7 +164,6 @@
             </div>
             <hr />
             <footer>
-                
                 <p><b>Last Updated:</b><asp:Label runat="server" ID="footer" Visible="true"></asp:Label> <b>&copy;Designed for MMC Inventronics</b></p>
             </footer>
         </div>

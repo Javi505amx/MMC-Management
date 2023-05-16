@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
     <%--TODO: agregar script js   --%>
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
 
         // Graph
         var ctx = document.getElementById("myChart");
@@ -64,7 +64,7 @@
                 },
             },
         });
-    </script>
+    </script>--%>
     <script type="text/javascript">
         function disableBack() { window.history.forward(); }
         setTimeout("disableBack()", 0);

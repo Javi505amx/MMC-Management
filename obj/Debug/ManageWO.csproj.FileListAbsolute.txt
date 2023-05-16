@@ -60,3 +60,10 @@ C:\Users\Javier Villalvazo\source\repos\ManageWO\obj\Debug\ManageWO.pdb
 C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\BouncyCastle.Crypto.dll
 C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\itextsharp.dll
 C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\itextsharp.xml
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\DocumentFormat.OpenXml.dll
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\SpreadsheetLight.dll
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\System.Drawing.Common.dll
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\System.IO.Packaging.dll
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\DocumentFormat.OpenXml.xml
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\SpreadsheetLight.xml
+C:\Users\Javier Villalvazo\source\repos\ManageWO\bin\System.IO.Packaging.xml
