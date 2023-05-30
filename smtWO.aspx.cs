@@ -268,8 +268,6 @@ namespace ManageWO
             CancelBtn.Visible = false;
             RefreshBtn.Visible = true;
             UpdateBtn.Visible = true;
-
-            //BindGridView();
             ClearBtn.Text = "CANCEL";
             ClearBtn.Attributes.Add("class", " fw-bold btn btn-secondary ");
             icono.Attributes.Add("class", "bi bi-x-circle-fill");

@@ -99,6 +99,7 @@
     <Content Include="PTHWO.aspx" />
     <Content Include="Sidebar.aspx" />
     <Content Include="SMT-Menu.aspx" />
+    <Content Include="SMTKN.aspx" />
     <Content Include="smtWO.aspx" />
     <Content Include="Web.config" />
     <Content Include="WO-SMT.aspx" />
@@ -153,6 +154,13 @@
     </Compile>
     <Compile Include="SMT-Menu.aspx.designer.cs">
       <DependentUpon>SMT-Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SMTKN.aspx.cs">
+      <DependentUpon>SMTKN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SMTKN.aspx.designer.cs">
+      <DependentUpon>SMTKN.aspx</DependentUpon>
     </Compile>
     <Compile Include="smtWO.aspx.cs">
       <DependentUpon>smtWO.aspx</DependentUpon>
